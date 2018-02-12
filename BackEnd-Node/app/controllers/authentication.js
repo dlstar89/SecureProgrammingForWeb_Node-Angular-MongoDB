@@ -1,12 +1,14 @@
-var passport = require('passport');
+let passport = require('passport');
 let mongoose = require('mongoose');
 var User = mongoose.model('user');
 
 
 function getUsers(req, res) {
     let query = User.find({});
-    query.exec((err, users) => {
-        if (err) res.send(err);
+    query.exec(function (err, users) {
+        if (err) {
+            res.send(err);
+        }
         res.json(users);
     });
 }

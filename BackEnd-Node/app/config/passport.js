@@ -1,11 +1,8 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var mongoose = require('mongoose');
-var User = mongoose.model('user');
+let passport = require('passport');
+let LocalStrategy = require('passport-local').Strategy;
+let mongoose = require('mongoose');
+let User = mongoose.model('user');
 
-// passport.use(new LocalStrategy({
-//         usernameField: 'email'
-//     },
 passport.use(new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
         usernameField: 'email',

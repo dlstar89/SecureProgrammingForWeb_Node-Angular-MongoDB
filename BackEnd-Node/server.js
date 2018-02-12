@@ -1,14 +1,19 @@
 /**Required packages */
-var config = require('./config'); // get our config file
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var mongoose = require('mongoose');
-var routes = require('./app/routes/index');
-var passport = require('passport');
+let config = require('./config'); // get our config file
+let express = require('express');
+let app = express();
+let bodyParser = require('body-parser');
+let cookieParser = require('cookie-parser');
+let morgan = require('morgan');
+let mongoose = require('mongoose');
+let routes = require('./app/routes/index');
+let passport = require('passport');
+let sanitizer = require('./app/middleware/sanitizer');
 
+// initializes mongoose models
 require('./app/models/db');
+
+//initiazlie passport configuration
 require('./app/config/passport');
 
 /**CONFIGURATION */
@@ -20,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
+app.use(cookieParser);
 
 // use morgan to log requests to the console
 app.use(morgan('dev'));

@@ -1,0 +1,17 @@
+<form (ngSubmit)='onSubmit(myForm)' #myForm="ngForm">
+  <h2 style="text-align: center;">REGISTER</h2>
+  <mat-form-field class="example-full-width">
+    <input name="email" ngModel required matInput placeholder="Email">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input name="password" ngModel required type="password" matInput placeholder="Password">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input name="passwordRepeat" ngModel required type="password" matInput placeholder="Repeat Password">
+  </mat-form-field>
+  <br>
+  <div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">REGISTER</button>
+    <button mat-raised-button color="accent" (click)='onNoClick()' style="float: right;">CANCEL</button>
+  </div>
+</form>

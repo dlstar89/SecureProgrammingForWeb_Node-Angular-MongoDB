@@ -5,16 +5,16 @@ function seedDBData(req, res) {
     User.remove({}).exec();
 
     let p1 = new User({
-            email: "sdeto@der.er",
-            name: "Samuel",
+            email: "a@b.ab",
+            name: "Bob Bobovich",
             password: "pass1"
         })
         .save(function (err) {
             if (err) throw err;
         });
     let p2 = new User({
-            email: "abc@des.eee",
-            name: "Dakon",
+            email: "c@d.cd",
+            name: "Dakon Drago",
             password: "pass2"
         })
         .save(function (err) {

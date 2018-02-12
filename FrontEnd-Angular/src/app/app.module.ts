@@ -1,18 +1,42 @@
+
+import { MaterialModule } from './_modules/material.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-import { AppComponent } from './app.component';
+import { ShellComponent } from './shell/shell.component';
+import { ModalLoginComponent } from './modals/modalLogin/modalLogin.component';
+import { ModalRegisterComponent } from './modals/modalRegister/modalRegister.component';
 
+import { AccountService } from './_utils/account.service';
+import { RoutingModule } from './app.routing';
+
+
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    ShellComponent,
+    ModalLoginComponent,
+    ModalRegisterComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  entryComponents: [
+    ShellComponent,
+    ModalLoginComponent,
+    ModalRegisterComponent
+  ],
+  providers: [AccountService],
+  bootstrap: [ShellComponent]
 })
 export class AppModule { }
