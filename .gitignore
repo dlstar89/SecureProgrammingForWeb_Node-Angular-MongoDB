@@ -61,4 +61,4 @@ typings/
 .next
 
 # MongoDB
-MongoDB/db/*/
+MongoDB

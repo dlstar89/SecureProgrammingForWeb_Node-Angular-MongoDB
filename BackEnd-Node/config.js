@@ -1,3 +1,4 @@
 module.exports = {
-    'localMongoDB': 'mongodb://localhost:6000/data'
+    'localMongoDB': 'mongodb://localhost:6000/data',
+    'jwtSecret': 'mysuperduperawesomesecret'
 };
