@@ -3,6 +3,7 @@ import { NavigationStart, NavigationEnd, NavigationCancel, Router } from '@angul
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ModalLoginComponent } from '../modals/modalLogin/modalLogin.component';
 import { ModalRegisterComponent } from './../modals/modalRegister/modalRegister.component';
+import { AuthenticationService } from '../_utils/authentication.service';
 
 @Component({
   selector: 'app-shell',
@@ -13,13 +14,17 @@ export class ShellComponent implements OnInit {
 
   title = 'WORK BOARD';
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public auth: AuthenticationService, public dialog: MatDialog) { }
 
   openLogin(): void {
     this.dialog.open(ModalLoginComponent, { width: '320px' });
   }
   openRegister(): void {
     this.dialog.open(ModalRegisterComponent, { width: '320px' });
+  }
+
+  logout() {
+    this.auth.logout();
   }
 
   ngOnInit() {

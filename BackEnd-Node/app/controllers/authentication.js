@@ -18,10 +18,16 @@ function registerUser(req, res) {
 
     user.name = req.body.name;
     user.email = req.body.email;
-
-    user.setPassword(req.body.password);
+    user.password = req.body.password
+    // user.setPassword(req.body.password);
 
     user.save(function (err) {
+        //New user might be using a non unique email which might return an error
+        if (err) {
+            res.status(999).json({error: "dupEmail aaaaaa"});
+            return;
+        }
+
         var token;
         token = user.generateJwt();
         res.status(200);

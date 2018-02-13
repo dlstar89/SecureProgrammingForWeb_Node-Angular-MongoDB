@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('user');
 
 function profileRead(req, res) {
-    console.log(req);
+    // console.log(req);
     // If no user ID exists in the JWT return a 401
     if (!req.payload._id) {
         res.status(401).json({

@@ -19,10 +19,14 @@ routes.get("/", (req, res) => res.json({
     message: "Hello from API!"
 }));
 
+/**GET */
 routes.get('/setup', seeder.seedDBData);
-routes.get("/users/:id?", auth, authentication.getUsers);
-routes.post("/login", authentication.loginUser);
+routes.get("/users/:id?", authentication.getUsers);
 routes.get('/profile', auth, profile.profileRead);
+
+/**POST */
+routes.post("/login", authentication.loginUser);
+routes.post("/register", authentication.registerUser);
 
 
 

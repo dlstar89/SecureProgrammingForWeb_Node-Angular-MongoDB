@@ -1,8 +1,10 @@
 <mat-toolbar color="primary">
-  <div>{{title}}</div>
+  <button mat-button routerLink='/'>{{title}}</button>
   <span style="flex: 1 1 auto;"></span>
-  <button mat-button (click)="openRegister()">Register</button>
-  <button mat-button (click)="openLogin()">LogIn</button>
+  <button *ngIf='!auth.isLoggedIn()' mat-button (click)="openRegister()">Register</button>
+  <button *ngIf='!auth.isLoggedIn()' mat-button (click)="openLogin()">LogIn</button>
+  <button *ngIf='auth.isLoggedIn()' routerLink='/profile' mat-button>{{auth.getUserDetails().name}}</button>
+  <button *ngIf='auth.isLoggedIn()' mat-button color="warn" (click)="logout()">LogOut</button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

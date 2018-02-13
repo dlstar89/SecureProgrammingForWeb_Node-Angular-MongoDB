@@ -1,10 +1,13 @@
 <form (ngSubmit)='onSubmit(myForm)' #myForm="ngForm">
   <h2 style="text-align: center;">REGISTER</h2>
   <mat-form-field class="example-full-width">
-    <input name="email" ngModel required matInput placeholder="Email">
+      <input name="email" ngModel required matInput placeholder="Name" [(ngModel)]='credentials.name'>
+    </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input name="email" ngModel required matInput placeholder="Email" [(ngModel)]='credentials.email'>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input name="password" ngModel required type="password" matInput placeholder="Password">
+    <input name="password" ngModel required type="password" matInput errorState='true' placeholder="Password" [(ngModel)]='credentials.password'>
   </mat-form-field>
   <mat-form-field class="example-full-width">
     <input name="passwordRepeat" ngModel required type="password" matInput placeholder="Repeat Password">
@@ -12,6 +15,6 @@
   <br>
   <div>
     <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">REGISTER</button>
-    <button mat-raised-button color="accent" (click)='onNoClick()' style="float: right;">CANCEL</button>
+    <button mat-raised-button color="accent" (click)='closeDialog()' style="float: right;">CANCEL</button>
   </div>
 </form>

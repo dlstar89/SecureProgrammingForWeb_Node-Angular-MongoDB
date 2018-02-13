@@ -1,27 +1,37 @@
-
 import { MaterialModule } from './_modules/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-
+/**APP SHELL */
 import { ShellComponent } from './shell/shell.component';
+
+/**ROUTING */
+import { RoutingModule } from './app.routing';
+
+/**MODALS */
 import { ModalLoginComponent } from './modals/modalLogin/modalLogin.component';
 import { ModalRegisterComponent } from './modals/modalRegister/modalRegister.component';
 
+/**SERVICES */
 import { AccountService } from './_utils/account.service';
-import { RoutingModule } from './app.routing';
+import { AuthenticationService } from './_utils/authentication.service';
+import { RouteAuthenticationGuardService } from './_utils/routeAuthentication-guard.service';
 
-
+/**PAGES */
 import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+
 
 @NgModule({
   declarations: [
     ShellComponent,
     ModalLoginComponent,
     ModalRegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -29,14 +39,15 @@ import { HomeComponent } from './pages/home/home.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    RoutingModule
+    RoutingModule,
+    HttpClientModule
   ],
   entryComponents: [
     ShellComponent,
     ModalLoginComponent,
     ModalRegisterComponent
   ],
-  providers: [AccountService],
+  providers: [AuthenticationService, RouteAuthenticationGuardService, AccountService],
   bootstrap: [ShellComponent]
 })
 export class AppModule { }

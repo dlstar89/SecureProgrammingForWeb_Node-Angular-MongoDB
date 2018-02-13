@@ -1,15 +1,18 @@
-<form (ngSubmit)='onSubmit(myForm)' #myForm="ngForm">
+<form (ngSubmit)='onSubmit()' #myForm="ngForm">
   <h2 style="text-align: center;">LOGIN</h2>
 
   <mat-form-field class="example-full-width">
-    <input name="email" ngModel required matInput placeholder="Email">
+    <input name="email" ngModel required matInput placeholder="Email" [(ngModel)]='credentials.email'>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input name="password" ngModel required type="password" matInput placeholder="Password">
+    <input name="password" ngModel required type="password" matInput placeholder="Password" [(ngModel)]='credentials.password'>
   </mat-form-field>
   <br>
   <div>
     <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">LOGIN</button>
-    <button mat-raised-button color="accent" (click)='onNoClick()' style="float: right;">CANCEL</button>
+    <button mat-raised-button color="accent" (click)='closeDialog()' style="float: right;">CANCEL</button>
+  </div>
+  <div *ngIf='loginError'>
+    <p>{{loginError.message}}</p>
   </div>
 </form>
