@@ -11,6 +11,14 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+  }
 
 }

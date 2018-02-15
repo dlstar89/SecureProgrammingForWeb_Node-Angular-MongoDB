@@ -24,6 +24,9 @@ import { RouteAuthenticationGuardService } from './_utils/routeAuthentication-gu
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
+/**COMPONENETS */
+import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     ModalLoginComponent,
     ModalRegisterComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    TaskcardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,13 @@
 #noWorkText {
   text-align: center;
-  color: darkgray;
+  color: white;
   font-size: 30px;
-  margin-top: 30%;
+  margin-top: 100px;
+}
+
+#WorkText {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  margin-top: 10px;
 }
