@@ -1,24 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from '../../_utils/post.service';
+import { cardFadeIn } from '../../_animations/taskCardAnimations';
+import { trigger, transition, query, animate, style, stagger } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  animations: [cardFadeIn]
 })
 export class HomeComponent implements OnInit {
 
-  posts = [];
-
-  constructor() { }
+  constructor(public postService: PostService) { }
 
   ngOnInit() {
-    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
-    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
-    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
-    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
-    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
-    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
-    this.posts.push({ title: 'Some Title', author: 'Joker Jo', description: 'Some description on the job' });
+    this.postService.getLatestPostsObservable();
   }
-
 }

@@ -7,7 +7,6 @@ let cookieParser = require('cookie-parser');
 let cors = require('cors');
 let morgan = require('morgan');
 let mongoose = require('mongoose');
-let routes = require('./app/routes/index');
 let passport = require('passport');
 let sanitizer = require('./app/middleware/sanitizer');
 
@@ -16,6 +15,9 @@ require('./app/models/db');
 
 //initiazlie passport configuration
 require('./app/config/passport');
+
+/**Routes Imports */
+let routes = require('./app/routes/index');
 
 /**CONFIGURATION */
 var port = process.env.PORT || 8080;

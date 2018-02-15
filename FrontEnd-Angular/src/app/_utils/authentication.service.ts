@@ -27,7 +27,7 @@ export interface TokenPayload {
 @Injectable()
 export class AuthenticationService {
 
-  private BASE_URL = environment.apiUrl + '/api';
+  private BASE_URL = environment.apiUrl;
   private TOKEN_KEY = 'token';
 
   constructor(private http: HttpClient, private router: Router) { }

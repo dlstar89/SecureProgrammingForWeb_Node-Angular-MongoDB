@@ -1,16 +1,16 @@
-<div *ngIf='posts.length <= 0' id="noWorkText">
+<div *ngIf='postService.postsArray.length <= 0' id="noWorkText">
   NO WORK POSTED
 </div>
 
-<div *ngIf='posts.length > 0' id="WorkText">
+<div *ngIf='postService.postsArray.length > 0' id="WorkText">
   LATEST POSTS
 </div>
 
-<div *ngIf='posts.length > 0' id="tasks">
+<div id="tasks" [@cardFadeIn]="postService.postsArray.length">
   <app-taskcard
-      *ngFor="let post of posts"
+      *ngFor="let post of postService.postsArray"
         [title]='post?.title'
-        [author]='post?.author'
+        [author]='post?.author.name'
         [description]='post?.description'>
   </app-taskcard>
 </div>

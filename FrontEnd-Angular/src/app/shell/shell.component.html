@@ -1,4 +1,4 @@
-<div>
+<nav>
   <mat-toolbar color="primary" id="toolbar">
     <button mat-button routerLink='/'>{{title}}</button>
     <span style="flex: 1 1 auto;"></span>
@@ -7,7 +7,7 @@
     <button *ngIf='auth.isLoggedIn()' routerLink='/profile' mat-button>{{auth.getUserDetails().name}}</button>
     <button *ngIf='auth.isLoggedIn()' mat-button color="warn" (click)="logout()">LogOut</button>
   </mat-toolbar>
-</div>
-<div id="root">
-  <router-outlet></router-outlet>
+</nav>
+<div id="root" class="page" [@routerAnimations]='prepareRouteTransition(outlet)'>
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>

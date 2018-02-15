@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 /**APP SHELL */
 import { ShellComponent } from './shell/shell.component';
@@ -18,6 +19,7 @@ import { ModalRegisterComponent } from './modals/modalRegister/modalRegister.com
 /**SERVICES */
 import { AccountService } from './_utils/account.service';
 import { AuthenticationService } from './_utils/authentication.service';
+import { PostService } from './_utils/post.service';
 import { RouteAuthenticationGuardService } from './_utils/routeAuthentication-guard.service';
 
 /**PAGES */
@@ -26,6 +28,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 /**COMPONENETS */
 import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
+
 
 
 @NgModule({
@@ -44,14 +47,20 @@ import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
     FormsModule,
     ReactiveFormsModule,
     RoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule
   ],
   entryComponents: [
     ShellComponent,
     ModalLoginComponent,
     ModalRegisterComponent
   ],
-  providers: [AuthenticationService, RouteAuthenticationGuardService, AccountService],
+  providers: [
+    AuthenticationService,
+    RouteAuthenticationGuardService,
+    AccountService,
+    PostService
+  ],
   bootstrap: [ShellComponent]
 })
 export class AppModule { }
