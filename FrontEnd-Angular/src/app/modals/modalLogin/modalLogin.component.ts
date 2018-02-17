@@ -1,8 +1,10 @@
-import { AuthenticationService, TokenPayload } from './../../_utils/authentication.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { ISubscription } from 'rxjs/Subscription';
+import { AuthenticationService, TokenPayload } from './../../_services/authentication.service';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FormValidationsService } from '../../_utils/formValidations.service';
 
 @Component({
   selector: 'app-modallogin',
@@ -10,35 +12,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./modalLogin.component.css'],
   providers: [AuthenticationService]
 })
-export class ModalLoginComponent implements OnInit {
+export class ModalLoginComponent implements OnInit, OnDestroy {
 
   credentials: TokenPayload = {
     email: '',
     password: ''
   };
 
-  loginError;
+  form;
+
+  private subscription$: ISubscription;
 
   constructor(
-    public dialogRef: MatDialogRef<ModalLoginComponent>,
+    private dialogRef: MatDialogRef<ModalLoginComponent>,
     private auth: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private fb: FormBuilder,
+    private fv: FormValidationsService
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, this.fv.isEmailValid()]],
+      password: ['', [Validators.required, this.fv.passwordValid()]]
+    });
+  }
 
   closeDialog(): void {
     this.dialogRef.close();
   }
 
   onSubmit() {
-    console.log(this.credentials);
-    this.auth.login(this.credentials).subscribe(() => {
+    this.subscription$ = this.auth.login(this.credentials).subscribe(() => {
       this.closeDialog();
       this.router.navigateByUrl('/profile');
     },
       err => {
-        console.log(err);
-        this.loginError = err.error;
+        console.error(err);
       });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription$) {
+      this.subscription$.unsubscribe();
+    }
   }
 }

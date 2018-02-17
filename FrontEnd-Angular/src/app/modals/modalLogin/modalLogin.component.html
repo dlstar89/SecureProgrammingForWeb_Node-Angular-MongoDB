@@ -1,18 +1,39 @@
-<form (ngSubmit)='onSubmit()' #myForm="ngForm">
-  <h2 style="text-align: center;">LOGIN</h2>
+<div>
+  <form (ngSubmit)='onSubmit()' [formGroup]='form' #myForm="ngForm">
+    <h2 style="text-align: center;">LOGIN</h2>
 
-  <mat-form-field class="example-full-width">
-    <input name="email" ngModel required matInput placeholder="Email" [(ngModel)]='credentials.email'>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input name="password" ngModel required type="password" matInput placeholder="Password" [(ngModel)]='credentials.password'>
-  </mat-form-field>
-  <br>
-  <div>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">LOGIN</button>
-    <button mat-raised-button color="accent" (click)='closeDialog()' style="float: right;">CANCEL</button>
-  </div>
-  <div *ngIf='loginError'>
-    <p>{{loginError.message}}</p>
-  </div>
-</form>
+    <mat-form-field class="example-full-width">
+      <input
+        formControlName='email'
+        required
+        matInput
+        placeholder="Email"
+        [(ngModel)]='credentials.email'>
+        <mat-error *ngIf='!form.controls.email.valid'>
+          Please enter a valid email address e.g: a@b.ab
+        </mat-error>
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field class="example-full-width">
+      <input
+        formControlName='password'
+        required
+        type="password"
+        matInput
+        placeholder="Password"
+        [(ngModel)]='credentials.password'>
+      <mat-error *ngIf='!form.controls.password.valid'>
+        Password must have at least 4 cahracters
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">LOGIN</button>
+      <button mat-raised-button color="accent" type="reset" (click)='closeDialog()' style="float: right;">CANCEL</button>
+    </div>
+  </form>
+</div>

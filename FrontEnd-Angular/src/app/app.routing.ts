@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { RouteAuthenticationGuardService } from './_utils/routeAuthentication-guard.service';
+import { RouteAuthenticationGuardService } from './_services/routeAuthentication-guard.service';
 
 const appRoutes: Routes = [
   {

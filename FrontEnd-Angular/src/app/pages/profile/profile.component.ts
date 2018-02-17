@@ -1,6 +1,6 @@
-import { AuthenticationService } from './../../_utils/authentication.service';
+import { AuthenticationService } from './../../_services/authentication.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserDetails } from '../../_utils/authentication.service';
+import { UserDetails } from '../../_services/authentication.service';
 import { ISubscription } from 'rxjs/Subscription';
 
 @Component({

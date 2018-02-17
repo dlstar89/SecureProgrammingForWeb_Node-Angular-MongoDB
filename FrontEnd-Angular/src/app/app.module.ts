@@ -17,10 +17,13 @@ import { ModalLoginComponent } from './modals/modalLogin/modalLogin.component';
 import { ModalRegisterComponent } from './modals/modalRegister/modalRegister.component';
 
 /**SERVICES */
-import { AccountService } from './_utils/account.service';
-import { AuthenticationService } from './_utils/authentication.service';
-import { PostService } from './_utils/post.service';
-import { RouteAuthenticationGuardService } from './_utils/routeAuthentication-guard.service';
+import { AccountService } from './_services/account.service';
+import { AuthenticationService } from './_services/authentication.service';
+import { PostService } from './_services/post.service';
+import { RouteAuthenticationGuardService } from './_services/routeAuthentication-guard.service';
+
+/**UTILS */
+import { FormValidationsService } from './_utils/formValidations.service';
 
 /**PAGES */
 import { HomeComponent } from './pages/home/home.component';
@@ -28,6 +31,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 /**COMPONENETS */
 import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
+
 
 
 
@@ -56,6 +60,7 @@ import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
     ModalRegisterComponent
   ],
   providers: [
+    FormValidationsService,
     AuthenticationService,
     RouteAuthenticationGuardService,
     AccountService,

@@ -4,7 +4,7 @@ import { NavigationStart, NavigationEnd, NavigationCancel, Router } from '@angul
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ModalLoginComponent } from '../modals/modalLogin/modalLogin.component';
 import { ModalRegisterComponent } from './../modals/modalRegister/modalRegister.component';
-import { AuthenticationService } from '../_utils/authentication.service';
+import { AuthenticationService } from '../_services/authentication.service';
 import { slideAnimation } from '../_animations/routeAnimations';
 
 @Component({
@@ -27,6 +27,7 @@ export class ShellComponent implements OnInit {
   openLogin(): void {
     this.dialog.open(ModalLoginComponent, { width: '320px' });
   }
+
   openRegister(): void {
     this.dialog.open(ModalRegisterComponent, { width: '320px' });
   }
@@ -35,13 +36,10 @@ export class ShellComponent implements OnInit {
     this.auth.logout();
   }
 
-  ngOnInit() {
-    // this.openDialog();
-  }
+  ngOnInit() { }
 
   prepareRouteTransition(outlet) {
     const animation = outlet.activatedRouteData['animation'] || {};
     return animation['value'] || null;
   }
-
 }
