@@ -1,20 +1,66 @@
-<form (ngSubmit)='onSubmit(myForm)' #myForm="ngForm">
-  <h2 style="text-align: center;">REGISTER</h2>
-  <mat-form-field class="example-full-width">
-      <input name="email" ngModel required matInput placeholder="Name" [(ngModel)]='credentials.name'>
+<div>
+  <form (ngSubmit)='onSubmit(myForm)' [formGroup]='form' #myForm="ngForm">
+    <h2 style="text-align: center;">REGISTER</h2>
+
+    <!-- NAME -->
+    <mat-form-field>
+      <input
+        formControlName='name'
+        required
+        matInput
+        placeholder="Name"
+        [(ngModel)]='credentials.name'>
+      <mat-error *ngIf='!form.controls.name.valid'>
+        Name can not be empty
+      </mat-error>
     </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input name="email" ngModel required matInput placeholder="Email" [(ngModel)]='credentials.email'>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input name="password" ngModel required type="password" matInput errorState='true' placeholder="Password" [(ngModel)]='credentials.password'>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <input name="passwordRepeat" ngModel required type="password" matInput placeholder="Repeat Password">
-  </mat-form-field>
-  <br>
-  <div>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">REGISTER</button>
-    <button mat-raised-button color="accent" (click)='closeDialog()' style="float: right;">CANCEL</button>
-  </div>
-</form>
+
+    <!-- EMAIL -->
+    <mat-form-field>
+      <input
+        formControlName='email'
+        required
+        matInput
+        placeholder="Email"
+        [(ngModel)]='credentials.email'>
+      <mat-error *ngIf='!form.controls.email.valid'>
+        Email is not valid
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input
+        formControlName='password'
+        required
+        matInput
+        type="password"
+        placeholder="Password"
+        [(ngModel)]='credentials.password'>
+      <mat-error *ngIf='!form.controls.password.valid'>
+        Password is not valid
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName='passwordRepeat'
+        required
+        matInput
+        type="password"
+        placeholder="Password Confirm">
+      <mat-error *ngIf='!form.controls.passwordRepeat.valid'>
+        Passwords is not valid
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+    <div *ngIf='form.errors?.passwordMatch' style="color: red;">password dont match</div>
+
+    <br>
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">REGISTER</button>
+      <button mat-raised-button color="accent" type="reset" (click)='closeDialog()' style="float: right;">CANCEL</button>
+    </div>
+  </form>
+</div>

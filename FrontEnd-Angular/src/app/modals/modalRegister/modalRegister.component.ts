@@ -1,7 +1,8 @@
+import { FormValidationsService } from './../../_utils/formValidations.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TokenPayload, AuthenticationService } from '../../_services/authentication.service';
 import { ISubscription } from 'rxjs/Subscription';
 
@@ -18,12 +19,28 @@ export class ModalRegisterComponent implements OnInit, OnDestroy {
     name: ''
   };
 
+  form;
+
   private subscription: ISubscription;
 
   constructor(
     public dialogRef: MatDialogRef<ModalRegisterComponent>,
     private auth: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private fb: FormBuilder,
+    private fv: FormValidationsService
+  ) { }
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      name: ['', [Validators.required, this.fv.isNameValid()]],
+      email: ['', [Validators.required, this.fv.isEmailValid()]],
+      password: ['', [Validators.required, this.fv.isPasswordValid()]],
+      passwordRepeat: ['', [Validators.required, this.fv.isPasswordValid()]],
+    },
+      { validator: this.fv.fieldsMatch('password', 'passwordRepeat') }
+    );
+  }
 
   closeDialog(): void {
     this.dialogRef.close();
@@ -38,9 +55,6 @@ export class ModalRegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
-
-  }
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();

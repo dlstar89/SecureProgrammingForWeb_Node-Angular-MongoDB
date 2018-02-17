@@ -15,15 +15,29 @@ export class FormValidationsService {
     };
   }
 
-  public passwordValid() {
+  public isPasswordValid() {
     return (control) => {
       if (control.touched || control.dirty) {
-        return control.value.length > 4 ? null : { valid: true };
+        return control.value.length >= 4 ? null : { valid: true };
+      }
+    };
+  }
+
+  public isNameValid() {
+    return (control) => {
+      if (control.touched || control.dirty) {
+        const conVal = control.value.trim();
+        return conVal.length >= 1 ? null : { valid: true };
       }
     };
   }
 
   public fieldsMatch(field1, field2) {
-    return field1 === field2 ? null : { valid: true };
+    return (control) => {
+      if (control.controls[field1].touched && control.controls[field2].touched
+        || control.controls[field1].dirty && control.controls[field2].dirty) {
+        return control.controls[field1].value === control.controls[field2].value ? null : { passwordMatch: true };
+      }
+    };
   }
 }

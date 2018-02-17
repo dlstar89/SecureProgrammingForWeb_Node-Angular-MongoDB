@@ -34,7 +34,7 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = this.fb.group({
       email: ['', [Validators.required, this.fv.isEmailValid()]],
-      password: ['', [Validators.required, this.fv.passwordValid()]]
+      password: ['', [Validators.required, this.fv.isPasswordValid()]]
     });
   }
 

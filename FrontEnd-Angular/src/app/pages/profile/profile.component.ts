@@ -17,7 +17,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.auth.profile().subscribe(user => {
-      this.details = user;
+      if (user) {
+        this.details = user;
+      } else {
+        this.auth.logout();
+      }
     }, (err) => {
       console.error(err);
     });
