@@ -5,18 +5,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ModalLoginComponent } from '../modals/modalLogin/modalLogin.component';
 import { ModalRegisterComponent } from './../modals/modalRegister/modalRegister.component';
 import { AuthenticationService } from '../_services/authentication.service';
-import { slideAnimation } from '../_animations/routeAnimations';
+import { routeAnimation, buttonAnimation } from '../_animations/angularAnimations';
 
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.css'],
   encapsulation: ViewEncapsulation.None,
-  animations: [
-    trigger('routerAnimations',
-      [transition('* => *', slideAnimation)]
-    )
-  ]
+  animations: [routeAnimation, buttonAnimation]
 })
 export class ShellComponent implements OnInit {
 

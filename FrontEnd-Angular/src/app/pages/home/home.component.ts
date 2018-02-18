@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../_services/post.service';
-import { cardFadeIn } from '../../_animations/taskCardAnimations';
+import { cardFadeIn } from '../../_animations/angularAnimations';
 import { trigger, transition, query, animate, style, stagger } from '@angular/animations';
 
 @Component({

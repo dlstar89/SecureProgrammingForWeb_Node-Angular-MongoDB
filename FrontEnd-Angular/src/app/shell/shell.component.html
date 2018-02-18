@@ -8,6 +8,11 @@
     <button *ngIf='auth.isLoggedIn()' mat-button color="warn" (click)="logout()">LogOut</button>
   </mat-toolbar>
 </nav>
-<div id="root" class="page" [@routerAnimations]='prepareRouteTransition(outlet)'>
+<div id="root" [@routerAnimation]='prepareRouteTransition(outlet)'>
   <router-outlet #outlet="outlet"></router-outlet>
+</div>
+
+
+<div id="buttonAddTask" *ngIf='auth.isLoggedIn()' @buttonAnimation>
+  <button mat-fab color="primary">+</button>
 </div>

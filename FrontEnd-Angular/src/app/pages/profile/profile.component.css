@@ -5,3 +5,10 @@ mat-card {
   margin-right: auto;
   /* background-color: gainsboro; */
 }
+
+#myPostsLabel {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  margin-top: 10px;
+}
