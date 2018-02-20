@@ -1,3 +1,4 @@
+import { PostComponent } from './pages/post/post.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -12,6 +13,15 @@ const appRoutes: Routes = [
     path: 'profile', component: ProfileComponent,
     data: { animation: { value: 'profile' } },
     canActivate: [RouteAuthenticationGuardService]
+  }
+  ,
+  {
+    path: 'post/:id', component: PostComponent,
+    data: { animation: { value: 'post' } }
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
   // { path: 'add', component: MediaItemFormComponent },
   // { path: ':medium', component: MediaItemListComponent },

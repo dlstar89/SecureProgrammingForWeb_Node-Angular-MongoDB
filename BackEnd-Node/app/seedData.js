@@ -16,11 +16,11 @@ function seedDBData(req, res) {
     });
     p1.save(function (err) {
         if (err) throw err;
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < 5; i++) {
             var post1 = new Post({
                     author: p1._id,
-                    title: 'Job ' + i,
-                    description: 'Some description for Job ' + i
+                    title: 'Bob Job ' + (i + 1),
+                    description: 'Some description for Job ' + (i + 1)
                 })
                 .save(function (err) {
                     if (err) throw err;
@@ -35,11 +35,11 @@ function seedDBData(req, res) {
     });
     p2.save(function (err) {
         if (err) throw err;
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < 3; i++) {
             var post1 = new Post({
                     author: p2._id,
-                    title: 'Job ' + i,
-                    description: 'Some description for Job ' + i
+                    title: 'Dakon Job ' + (i + 1),
+                    description: 'Some description for Job ' + (i + 1)
                 })
                 .save(function (err) {
                     if (err) throw err;

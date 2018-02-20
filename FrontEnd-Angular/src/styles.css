@@ -24,7 +24,18 @@ app-shell {
   flex-direction: column;
 }
 
-/* ::-webkit-scrollbar {
+.TaskLink {
+  cursor: pointer;
+}
+
+.CenterFancyText {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  margin-top: 10px;
+}
+
+::-webkit-scrollbar {
   width: 0px;
   background: transparent;
-} */
+}

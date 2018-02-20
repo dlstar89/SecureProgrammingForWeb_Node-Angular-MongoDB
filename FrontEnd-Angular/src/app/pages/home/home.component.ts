@@ -15,5 +15,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.postService.getLatestPostsObservable();
+    // this.postService.getLatestPosts();
   }
 }

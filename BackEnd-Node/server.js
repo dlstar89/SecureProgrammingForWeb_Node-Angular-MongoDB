@@ -41,8 +41,9 @@ app.use(passport.initialize());
 app.use('/api', routes.routes);
 
 app.use(function (err, req, res, next) {
-    if (err.name === 'UnauthorizedError') {
-        res.status(401);
+    // if (err.name === 'UnauthorizedError') {
+    if (err.status === 401) {
+        res.status(err.status);
         res.json({
             "message": err.name + ": " + err.message
         });

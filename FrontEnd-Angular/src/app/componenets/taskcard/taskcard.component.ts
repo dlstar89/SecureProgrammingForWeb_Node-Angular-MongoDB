@@ -7,14 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TaskcardComponent implements OnInit {
 
+  @Input() postId: string;
+  @Input() author: string;
   @Input() title: string;
   @Input() description: string;
-  @Input() author: string;
+  @Input() fullDescription: string;
 
   constructor() { }
 
-  ngOnInit() {
-    // this.title = "asd"
-  }
+  ngOnInit() { }
 
 }

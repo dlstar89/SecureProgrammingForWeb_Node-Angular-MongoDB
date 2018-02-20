@@ -40,6 +40,10 @@ export class AuthenticationService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
+  get myToken(): string {
+    return this.getToken();
+  }
+
   public logout(): void {
     window.localStorage.removeItem(this.TOKEN_KEY);
     this.router.navigateByUrl('/');

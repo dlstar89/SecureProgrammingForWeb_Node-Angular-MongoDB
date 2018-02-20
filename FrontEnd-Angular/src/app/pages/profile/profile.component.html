@@ -9,3 +9,13 @@
 </mat-card>
 
 <div id="myPostsLabel">MY POSTS</div>
+
+<div id="tasks" [@cardFadeIn]="myPosts.length">
+  <app-taskcard class="TaskLink"
+    *ngFor="let post of myPosts"
+      [routerLink]='["/post", post?._id]'
+      [postId]='post?._id'
+      [title]='post?.title'
+      [description]='post?.description'>
+  </app-taskcard>
+</div>

@@ -31,6 +31,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 /**COMPONENETS */
 import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
+import { PostComponent } from './pages/post/post.component';
 
 
 
@@ -42,7 +43,8 @@ import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
     ModalRegisterComponent,
     HomeComponent,
     ProfileComponent,
-    TaskcardComponent
+    TaskcardComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

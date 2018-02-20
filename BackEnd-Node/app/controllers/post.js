@@ -14,6 +14,46 @@ function getRecentPosts(req, res) {
         });
 }
 
+function getPost(req, res) {
+    let postId = req.headers['postid'];
+
+    Post
+        .findOne({
+            _id: postId
+        })
+        .populate('author', ['name'])
+        .exec(function (err, post) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(post);
+        });
+}
+
+function createPost(req, res) {
+    const data = req.body;
+
+    const _id = req.payload._id;
+    const title = data.title;
+    const description = data.description;
+
+    var post = new Post({
+        author: _id,
+        title: title,
+        description: description
+    });
+
+    post.save(function (err) {
+        if (err) throw err;
+
+        res.json({
+            success: 'OK'
+        });
+    });
+}
+
 module.exports = {
-    getRecentPosts
+    getRecentPosts,
+    getPost,
+    createPost
 };

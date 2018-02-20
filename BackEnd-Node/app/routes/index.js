@@ -21,14 +21,20 @@ routes.get("/", (req, res) => res.json({
 }));
 
 /**GET */
-routes.get('/setup', seeder.seedDBData);
 routes.get("/users/:id?", authentication.getUsers);
+routes.get('/setup', seeder.seedDBData);
+
+routes.get('/getRecentPosts', post.getRecentPosts);
+routes.get('/getPost/:id?', post.getPost);
+
 routes.get('/profile', auth, profile.profileRead);
-routes.get('/getRecentPosts',post.getRecentPosts);
+routes.get('/getMyPosts', auth, profile.getMyPosts);
 
 /**POST */
 routes.post("/login", authentication.loginUser);
 routes.post("/register", authentication.registerUser);
+
+routes.post("/createpost", auth, post.createPost);
 
 
 

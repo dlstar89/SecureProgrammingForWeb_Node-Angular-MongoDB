@@ -2,17 +2,18 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let postSchema = new Schema({
-    author: {
+let messageSchema = new Schema({
+    authorId: {
         type: Schema.Types.ObjectId,
         ref: 'user',
         required: true
     },
-    title: {
-        type: String,
+    postId: {
+        type: Schema.Types.ObjectId,
+        ref: 'pst',
         required: true
     },
-    description: {
+    text: {
         type: String,
         required: true
     },
@@ -34,4 +35,4 @@ let postSchema = new Schema({
 
 
 //Export User schema
-module.exports = mongoose.model('post', postSchema);
+module.exports = mongoose.model('message', messageSchema);

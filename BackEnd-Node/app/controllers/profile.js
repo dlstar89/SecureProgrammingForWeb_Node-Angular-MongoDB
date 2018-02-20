@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('user');
+var Post = mongoose.model('post');
 
 function profileRead(req, res) {
     // console.log(req);
@@ -18,6 +19,22 @@ function profileRead(req, res) {
     }
 }
 
+function getMyPosts(req, res) {
+    const _id = req.payload._id;
+
+    Post
+        .find({
+            author: _id
+        })
+        .sort({
+            title: 'desc'
+        })
+        .exec(function (err, posts) {
+            res.json(posts);
+        });
+}
+
 module.exports = {
-    profileRead
+    profileRead,
+    getMyPosts
 };

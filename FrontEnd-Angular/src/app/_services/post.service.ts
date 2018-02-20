@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/toPromise';
+import { AuthenticationService } from './authentication.service';
 
 export interface PostDetails {
   _id: string;
@@ -17,6 +18,7 @@ export interface PostDetails {
   };
   title: string;
   description: string;
+  fullDescription: string;
   postedOn: string;
 }
 
@@ -27,11 +29,12 @@ export class PostService {
   posts = this.postSubject.asObservable();
   postsArray: any = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
   public getLatestPosts() {
     // const request = this.http.get(`{$this.BASE_URL}/getrecentposts`)
-    this.http.get(this.BASE_URL + '/getrecentposts')
+    this.http
+      .get(this.BASE_URL + '/getrecentposts')
       .subscribe(response => {
         this.postSubject.next(response);
       }, error => {
@@ -40,11 +43,30 @@ export class PostService {
   }
 
   public getLatestPostsObservable() {
-    this.http.get(this.BASE_URL + '/getrecentposts').subscribe(res => {
-      this.postsArray = res;
-    }, err => {
-      console.error(err);
-    });
+    this.http.
+      get(this.BASE_URL + '/getrecentposts')
+      .subscribe(res => {
+        this.postsArray = res;
+      }, err => {
+        console.error(err);
+      });
+  }
+
+  public getPost(id): Observable<any> {
+    return this.http.
+      get(
+        this.BASE_URL + '/getpost',
+        { headers: { postid: id } }
+      );
+  }
+
+
+  public getMyPosts(): Observable<any> {
+    return this.http.
+      get(
+        this.BASE_URL + '/getmyposts',
+        { headers: { Authorization: `Bearer ${this.auth.myToken}` } }
+      );
   }
 
 }

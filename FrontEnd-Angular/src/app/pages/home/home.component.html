@@ -7,10 +7,21 @@
 </div>
 
 <div id="tasks" [@cardFadeIn]="postService.postsArray.length">
-  <app-taskcard
+  <app-taskcard class="TaskLink"
       *ngFor="let post of postService.postsArray"
+        [routerLink]='["/post", post?._id]'
+        [postId]='post?._id'
         [title]='post?.title'
         [author]='post?.author.name'
         [description]='post?.description'>
   </app-taskcard>
 </div>
+
+<!-- <div id="tasks" >
+    <app-taskcard
+        *ngFor="let post of postService.posts | async"
+          [title]='post?.title'
+          [author]='post?.author.name'
+          [description]='post?.description'>
+    </app-taskcard>
+</div> -->

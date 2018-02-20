@@ -16,6 +16,7 @@ export const routeAnimation =
         style({
           position: 'fixed',
           width: '100%',
+          height: '100%',
           transform: 'translate3d(-100%,0,0)'
         }),
         { optional: true }),
@@ -26,6 +27,7 @@ export const routeAnimation =
           style({
             position: 'fixed',
             width: '100%',
+            height: '100%',
             opacity: 0,
             transform: 'translate3d(100%,0,0)'
           })
@@ -37,6 +39,9 @@ export const routeAnimation =
         animate('800ms ease',
           style({
             opacity: 1,
+            position: 'fixed',
+            width: '100%',
+            height: '100%',
             transform: 'translate3d(0%,0,0)'
           })
         ),
