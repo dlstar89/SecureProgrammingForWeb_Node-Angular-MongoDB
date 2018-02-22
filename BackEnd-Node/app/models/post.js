@@ -2,7 +2,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let postSchema = new Schema({
+var postSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: 'user',
@@ -12,13 +12,27 @@ let postSchema = new Schema({
         type: String,
         required: true
     },
-    description: {
+    shortDescription: {
+        type: String,
+        required: true
+    },
+    fullDescription: {
         type: String,
         required: true
     },
     postedOn: {
         type: Date,
         default: Date.now
+    },
+    messages: [{
+        type: Schema.Types.ObjectId,
+        ref: 'message',
+        required: false
+    }],
+    totalMessages: {
+        type: Number,
+        required: false,
+        default: 0
     }
 }, {
     versionKey: false

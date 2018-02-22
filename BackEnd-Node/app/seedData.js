@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
 let User = mongoose.model('user');
 let Post = mongoose.model('post');
+let Message = mongoose.model('message');
 
 
 function seedDBData(req, res) {
 
     User.collection.drop();
     Post.collection.drop();
+    Message.collection.drop();
 
     var p1 = new User({
-        // _id: new mongoose.Types.ObjectId(),
         email: "a@b.ab",
         name: "Bob Bobovich",
         password: "pass1"
@@ -17,14 +18,25 @@ function seedDBData(req, res) {
     p1.save(function (err) {
         if (err) throw err;
         for (var i = 0; i < 5; i++) {
-            var post1 = new Post({
-                    author: p1._id,
-                    title: 'Bob Job ' + (i + 1),
-                    description: 'Some description for Job ' + (i + 1)
-                })
-                .save(function (err) {
-                    if (err) throw err;
-                });
+            let num = (i + 1);
+            var post = new Post({
+                author: p1._id,
+                title: `Bob Job ${num}`,
+                shortDescription: `Some description for Job ${num}`,
+                fullDescription: `Full description for Job ${num}`
+            });
+            post.save(function (err) {
+                if (err) throw err;
+                let message = new Message({
+                        userId: p1._id,
+                        postId: post._id,
+                        messageText: `This is a message for the post ${num}`,
+                        markedAsAnswer: num % 2 == 0 ? true : false
+                    })
+                    .save(function (err) {
+                        if (err) throw err;
+                    });
+            });
         }
     });
 
@@ -36,10 +48,13 @@ function seedDBData(req, res) {
     p2.save(function (err) {
         if (err) throw err;
         for (var i = 0; i < 3; i++) {
+            let num = (i + 1);
             var post1 = new Post({
                     author: p2._id,
-                    title: 'Dakon Job ' + (i + 1),
-                    description: 'Some description for Job ' + (i + 1)
+                    title: `Dakon Job ${num}`,
+                    shortDescription: `Some description for Job ${num}`,
+                    fullDescription: `Full description for Job ${num}`
+
                 })
                 .save(function (err) {
                     if (err) throw err;

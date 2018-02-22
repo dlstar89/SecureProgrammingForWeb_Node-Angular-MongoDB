@@ -5,6 +5,7 @@ var jwt = require('express-jwt');
 var authentication = require('../controllers/authentication');
 var profile = require('../controllers/profile');
 var post = require('../controllers/post');
+var message = require('../controllers/message');
 
 let seeder = require('../seedData');
 
@@ -26,6 +27,9 @@ routes.get('/setup', seeder.seedDBData);
 
 routes.get('/getRecentPosts', post.getRecentPosts);
 routes.get('/getPost/:id?', post.getPost);
+
+routes.get('/getRecentMessages', message.getRecentMessages);
+routes.get('/getMessage/:id?', message.getMessage);
 
 routes.get('/profile', auth, profile.profileRead);
 routes.get('/getMyPosts', auth, profile.getMyPosts);

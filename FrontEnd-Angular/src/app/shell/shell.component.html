@@ -12,7 +12,4 @@
   <router-outlet #outlet="outlet"></router-outlet>
 </div>
 
-
-<div id="buttonAddTask" *ngIf='auth.isLoggedIn()' @buttonAnimation>
-  <button mat-fab color="primary">+</button>
-</div>
+<app-actionbutton (notifyParent)="getNotification($event)"></app-actionbutton>

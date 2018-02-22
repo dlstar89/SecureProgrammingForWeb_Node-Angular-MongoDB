@@ -10,8 +10,10 @@ export class TaskcardComponent implements OnInit {
   @Input() postId: string;
   @Input() author: string;
   @Input() title: string;
-  @Input() description: string;
+  @Input() shortDescription: string;
   @Input() fullDescription: string;
+  @Input() totalMessages: number;
+  @Input() datePosted: Date;
 
   constructor() { }
 

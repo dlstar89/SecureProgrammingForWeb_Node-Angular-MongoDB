@@ -20,6 +20,8 @@ export class ShellComponent implements OnInit {
 
   constructor(public auth: AuthenticationService, public dialog: MatDialog) { }
 
+  ngOnInit() { }
+
   openLogin(): void {
     this.dialog.open(ModalLoginComponent, { width: '320px' });
   }
@@ -32,7 +34,9 @@ export class ShellComponent implements OnInit {
     this.auth.logout();
   }
 
-  ngOnInit() { }
+  getNotification(evt) {
+    console.log(evt);
+  }
 
   prepareRouteTransition(outlet) {
     const animation = outlet.activatedRouteData['animation'] || {};

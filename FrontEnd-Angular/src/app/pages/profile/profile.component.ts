@@ -1,4 +1,4 @@
-import { PostService } from './../../_services/post.service';
+import { PostService, PostDetails } from './../../_services/post.service';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserDetails } from '../../_services/authentication.service';
@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private subscriptionUser$: ISubscription;
   private subscriptionPosts$: ISubscription;
 
-  myPosts = [];
+  myPosts: PostDetails[] = [];
 
   constructor(private auth: AuthenticationService, private posts: PostService) { }
 
@@ -34,7 +34,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.subscriptionPosts$ = this.posts.getMyPosts()
       .subscribe(data => {
-        console.log(data);
         this.myPosts = data;
       }, err => {
         console.error(err);

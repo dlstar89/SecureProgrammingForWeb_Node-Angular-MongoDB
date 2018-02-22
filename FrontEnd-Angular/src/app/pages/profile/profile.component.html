@@ -16,6 +16,9 @@
       [routerLink]='["/post", post?._id]'
       [postId]='post?._id'
       [title]='post?.title'
-      [description]='post?.description'>
+      [shortDescription]='post?.shortDescription'
+      [totalMessages]='post?.totalMessages'
+      [datePosted]='post?.postedOn'
+    >
   </app-taskcard>
 </div>

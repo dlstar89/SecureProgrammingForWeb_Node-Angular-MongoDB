@@ -19,5 +19,12 @@
 
   <div id="right">
     <h1 class="CenterFancyText">MESSAGES</h1>
+
+    <app-messagecard
+      *ngFor="let message of messages"
+        [message] = 'message'
+      >
+    </app-messagecard>
+
   </div>
 </div>

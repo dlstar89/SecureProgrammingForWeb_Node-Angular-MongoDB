@@ -3,19 +3,24 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let messageSchema = new Schema({
-    authorId: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'user',
         required: true
     },
     postId: {
         type: Schema.Types.ObjectId,
-        ref: 'pst',
+        ref: 'post',
         required: true
     },
-    text: {
+    messageText: {
         type: String,
         required: true
+    },
+    markedAsAnswer: {
+        type: Boolean,
+        required: false,
+        default: false
     },
     postedOn: {
         type: Date,
@@ -28,7 +33,7 @@ let messageSchema = new Schema({
 
 // Pre save checks
 // postSchema.pre('save', function (next) {
-//     var post = this;
+//     var message = this;
 
 //     next();
 // });

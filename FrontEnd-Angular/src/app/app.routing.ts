@@ -6,22 +6,21 @@ import { RouteAuthenticationGuardService } from './_services/routeAuthentication
 
 const appRoutes: Routes = [
   {
-    path: '', component: HomeComponent,
+    path: 'home', component: HomeComponent,
     data: { animation: { value: 'home' } }
   },
   {
     path: 'profile', component: ProfileComponent,
     data: { animation: { value: 'profile' } },
     canActivate: [RouteAuthenticationGuardService]
-  }
-  ,
+  },
   {
     path: 'post/:id', component: PostComponent,
     data: { animation: { value: 'post' } }
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'home'
   }
   // { path: 'add', component: MediaItemFormComponent },
   // { path: ':medium', component: MediaItemListComponent },

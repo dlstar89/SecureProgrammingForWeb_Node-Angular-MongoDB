@@ -1,16 +1,46 @@
 var mongoose = require('mongoose');
 var Post = mongoose.model('post');
+var Message = mongoose.model('message');
 
 function getRecentPosts(req, res) {
-    Post.find({})
-        .populate('author', ['name'])
-        // .sort('title')
+    Post
+        .find({})
+        .sort({
+            title: 'desc'
+        })
         .limit(20)
-        .exec(function (err, posts) {
-            if (err) {
-                res.send(err);
-            }
+        .exec()
+        .then(function (posts) {
+            return Promise.all([
+                posts,
+                Message
+                .find({
+                    postId: {
+                        $in: posts.map(function (post) {
+                            return post._id;
+                        })
+                    }
+                })
+                .exec()
+            ]);
+        })
+        .then(function (results) {
+            var posts = results[0];
+            var messages = results[1];
+            posts.forEach(function (post) {
+                post.messages = messages.filter(function (message) {
+                    // return message.postId.equals(post._id);
+                    if (message.postId.equals(post._id)) {
+                        post.totalMessages++;
+                    }
+                });
+            });
+
             res.json(posts);
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json(err);
         });
 }
 
@@ -33,21 +63,24 @@ function getPost(req, res) {
 function createPost(req, res) {
     const data = req.body;
 
-    const _id = req.payload._id;
+    const author_id = req.payload._id;
     const title = data.title;
-    const description = data.description;
+    const shortDescription = data.shortDescription;
 
     var post = new Post({
-        author: _id,
+        author: author_id,
         title: title,
-        description: description
+        shortDescription: shortDescription
     });
 
     post.save(function (err) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
 
         res.json({
-            success: 'OK'
+            success: 'OK',
+            postId: post._id
         });
     });
 }

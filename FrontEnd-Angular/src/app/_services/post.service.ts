@@ -17,8 +17,9 @@ export interface PostDetails {
     name: string;
   };
   title: string;
-  description: string;
+  shortDescription: string;
   fullDescription: string;
+  totalMessages: number;
   postedOn: string;
 }
 
@@ -27,7 +28,7 @@ export class PostService {
   private BASE_URL = environment.apiUrl;
   private postSubject = new Subject();
   posts = this.postSubject.asObservable();
-  postsArray: any = [];
+  postsArray: PostDetails[] = [];
 
   constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
@@ -46,7 +47,7 @@ export class PostService {
     this.http.
       get(this.BASE_URL + '/getrecentposts')
       .subscribe(res => {
-        this.postsArray = res;
+        this.postsArray = res as PostDetails[];
       }, err => {
         console.error(err);
       });

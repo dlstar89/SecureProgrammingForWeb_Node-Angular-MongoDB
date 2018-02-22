@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostDetails } from '../../_services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators/map';
+import { MessageService } from '../../_services/message.service';
 
 @Component({
   selector: 'app-post',
@@ -13,13 +14,22 @@ export class PostComponent implements OnInit, OnDestroy {
 
   task: PostDetails;
 
-  constructor(private postService: PostService, private route: ActivatedRoute) { }
+  messages = [];
+
+  constructor(
+    private postService: PostService,
+    private messageSevice: MessageService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     const postId = this.route.snapshot.params['id'];
 
     this.postService.getPost(postId).subscribe(data => {
       this.task = data;
+    });
+
+    this.messageSevice.getMessages(postId).subscribe(data => {
+      this.messages = data;
     });
 
     // console.log(postId);

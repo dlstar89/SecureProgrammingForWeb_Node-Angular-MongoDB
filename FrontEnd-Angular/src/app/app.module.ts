@@ -21,6 +21,7 @@ import { AccountService } from './_services/account.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { PostService } from './_services/post.service';
 import { RouteAuthenticationGuardService } from './_services/routeAuthentication-guard.service';
+import { MessageService } from './_services/message.service';
 
 /**UTILS */
 import { FormValidationsService } from './_utils/formValidations.service';
@@ -32,8 +33,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 /**COMPONENETS */
 import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
 import { PostComponent } from './pages/post/post.component';
-
-
+import { MessagecardComponent } from './componenets/messagecard/messagecard.component';
+import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.component';
 
 
 @NgModule({
@@ -42,9 +43,11 @@ import { PostComponent } from './pages/post/post.component';
     ModalLoginComponent,
     ModalRegisterComponent,
     HomeComponent,
+    PostComponent,
     ProfileComponent,
     TaskcardComponent,
-    PostComponent
+    MessagecardComponent,
+    ActionbuttonComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { PostComponent } from './pages/post/post.component';
     AuthenticationService,
     RouteAuthenticationGuardService,
     AccountService,
-    PostService
+    PostService,
+    MessageService
   ],
   bootstrap: [ShellComponent]
 })
