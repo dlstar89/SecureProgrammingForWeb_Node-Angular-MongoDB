@@ -17,7 +17,7 @@ function seedDBData(req, res) {
     });
     p1.save(function (err) {
         if (err) throw err;
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 3; i++) {
             let num = (i + 1);
             var post = new Post({
                 author: p1._id,
@@ -30,7 +30,7 @@ function seedDBData(req, res) {
                 let message = new Message({
                         userId: p1._id,
                         postId: post._id,
-                        messageText: `This is a message for the post ${num}`,
+                        messageText: `This is a message #${num}`,
                         markedAsAnswer: num % 2 == 0 ? true : false
                     })
                     .save(function (err) {

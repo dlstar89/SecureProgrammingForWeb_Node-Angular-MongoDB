@@ -6,17 +6,17 @@ function getRecentPosts(req, res) {
     Post
         .find({})
         .sort({
-            title: 'desc'
+            postedOn: -1
         })
         .limit(20)
         .exec()
-        .then(function (posts) {
+        .then(posts => {
             return Promise.all([
                 posts,
                 Message
                 .find({
                     postId: {
-                        $in: posts.map(function (post) {
+                        $in: posts.map(post => {
                             return post._id;
                         })
                     }
@@ -28,7 +28,7 @@ function getRecentPosts(req, res) {
             var posts = results[0];
             var messages = results[1];
             posts.forEach(function (post) {
-                post.messages = messages.filter(function (message) {
+                post.messages = messages.filter(message => {
                     // return message.postId.equals(post._id);
                     if (message.postId.equals(post._id)) {
                         post.totalMessages++;
@@ -39,24 +39,26 @@ function getRecentPosts(req, res) {
             res.json(posts);
         })
         .catch(function (err) {
-            console.log(err);
+            console.error(err);
             res.json(err);
         });
 }
 
 function getPost(req, res) {
-    let postId = req.headers['postid'];
+    const postId = req.headers.postid;
 
     Post
         .findOne({
             _id: postId
         })
         .populate('author', ['name'])
-        .exec(function (err, post) {
-            if (err) {
-                res.send(err);
-            }
+        .exec()
+        .then(post => {
             res.json(post);
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.json(err);
         });
 }
 
@@ -66,22 +68,20 @@ function createPost(req, res) {
     const author_id = req.payload._id;
     const title = data.title;
     const shortDescription = data.shortDescription;
+    const fullDescription = data.fullDescription;
+
 
     var post = new Post({
         author: author_id,
         title: title,
-        shortDescription: shortDescription
+        shortDescription: shortDescription,
+        fullDescription: fullDescription
     });
 
     post.save(function (err) {
-        if (err) {
-            throw err;
-        }
+        if (err) throw err;
 
-        res.json({
-            success: 'OK',
-            postId: post._id
-        });
+        res.json(post);
     });
 }
 

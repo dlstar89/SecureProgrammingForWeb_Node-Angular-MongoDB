@@ -18,16 +18,18 @@ export class ShellComponent implements OnInit {
 
   title = 'WORK BOARD';
 
+  modalConfig = { width: '320px', position: { top: '0px' } };
+
   constructor(public auth: AuthenticationService, public dialog: MatDialog) { }
 
   ngOnInit() { }
 
   openLogin(): void {
-    this.dialog.open(ModalLoginComponent, { width: '320px' });
+    this.dialog.open(ModalLoginComponent, this.modalConfig);
   }
 
   openRegister(): void {
-    this.dialog.open(ModalRegisterComponent, { width: '320px' });
+    this.dialog.open(ModalRegisterComponent, this.modalConfig);
   }
 
   logout() {

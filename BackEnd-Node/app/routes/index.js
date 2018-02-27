@@ -40,6 +40,8 @@ routes.post("/register", authentication.registerUser);
 
 routes.post("/createpost", auth, post.createPost);
 
+routes.post("/postmessage", auth, message.createMessage);
+
 
 
 

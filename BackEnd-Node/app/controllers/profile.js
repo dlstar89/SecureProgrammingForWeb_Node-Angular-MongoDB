@@ -27,7 +27,7 @@ function getMyPosts(req, res) {
             author: _id
         })
         .sort({
-            title: 'desc'
+            postedOn: -1
         })
         .exec()
         .then(function (posts) {

@@ -15,11 +15,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   details: UserDetails;
   private subscriptionUser$: ISubscription;
-  private subscriptionPosts$: ISubscription;
 
-  myPosts: PostDetails[] = [];
-
-  constructor(private auth: AuthenticationService, private posts: PostService) { }
+  constructor(private auth: AuthenticationService, public posts: PostService) { }
 
   ngOnInit() {
     this.subscriptionUser$ = this.auth.profile().subscribe(user => {
@@ -32,16 +29,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       console.error(err);
     });
 
-    this.subscriptionPosts$ = this.posts.getMyPosts()
-      .subscribe(data => {
-        this.myPosts = data;
-      }, err => {
-        console.error(err);
-      });
+    this.posts.getMyPosts();
   }
 
   ngOnDestroy() {
     this.subscriptionUser$.unsubscribe();
-    this.subscriptionPosts$.unsubscribe();
   }
 }

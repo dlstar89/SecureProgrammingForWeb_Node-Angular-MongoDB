@@ -18,7 +18,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   constructor(
     private postService: PostService,
-    private messageSevice: MessageService,
+    public messageSevice: MessageService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -28,9 +28,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.task = data;
     });
 
-    this.messageSevice.getMessages(postId).subscribe(data => {
-      this.messages = data;
-    });
+    this.messageSevice.getMessages(postId);
 
     // console.log(postId);
   }

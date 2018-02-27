@@ -23,17 +23,23 @@ export interface PostDetails {
   postedOn: string;
 }
 
+export interface PostPayload {
+  title: string;
+  shortDescription: string;
+  fullDescription: string;
+}
+
 @Injectable()
 export class PostService {
   private BASE_URL = environment.apiUrl;
   private postSubject = new Subject();
   posts = this.postSubject.asObservable();
   postsArray: PostDetails[] = [];
+  myPostsArray: PostDetails[] = [];
 
   constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
   public getLatestPosts() {
-    // const request = this.http.get(`{$this.BASE_URL}/getrecentposts`)
     this.http
       .get(this.BASE_URL + '/getrecentposts')
       .subscribe(response => {
@@ -61,13 +67,25 @@ export class PostService {
       );
   }
 
-
-  public getMyPosts(): Observable<any> {
-    return this.http.
-      get(
-        this.BASE_URL + '/getmyposts',
-        { headers: { Authorization: `Bearer ${this.auth.myToken}` } }
-      );
+  public getMyPosts() {
+    this.http.get(this.BASE_URL + '/getmyposts', { headers: { Authorization: `Bearer ${this.auth.myToken}` } }
+    ).subscribe(data => {
+      this.myPostsArray = data as PostDetails[];
+    }, err => {
+      console.log(err);
+    });
   }
 
+  public createPost(post: PostPayload, bearer: string, _suc?: Function, _err?: Function) {
+    this.http.post(this.BASE_URL + '/createpost', post, { headers: { Authorization: `Bearer ${bearer}` } })
+      .subscribe(
+        res => {
+          this.myPostsArray.unshift(res as PostDetails);
+          _suc();
+        },
+        err => {
+          console.error(err);
+          _err();
+        });
+  }
 }

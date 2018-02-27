@@ -1,0 +1,28 @@
+<div>
+  <form (ngSubmit)='onSubmit()' [formGroup]='form' #myForm="ngForm">
+    <h2 style="text-align: center;">NEW MESSAGE</h2>
+
+    <mat-form-field>
+      <textarea
+        formControlName='message'
+        required
+        matInput
+        placeholder='Message'
+        [(ngModel)]='message'
+      >
+      </textarea>
+
+      <mat-error *ngIf='!form.controls.message.valid'>
+        Enter full description of the post
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">POST</button>
+      <button mat-raised-button color="accent" type="reset" (click)='closeDialog()' style="float: right;">CANCEL</button>
+    </div>
+  </form>
+</div>

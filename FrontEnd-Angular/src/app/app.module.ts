@@ -13,8 +13,7 @@ import { ShellComponent } from './shell/shell.component';
 import { RoutingModule } from './app.routing';
 
 /**MODALS */
-import { ModalLoginComponent } from './modals/modalLogin/modalLogin.component';
-import { ModalRegisterComponent } from './modals/modalRegister/modalRegister.component';
+import { MODALS } from './modals/modals.component';
 
 /**SERVICES */
 import { AccountService } from './_services/account.service';
@@ -40,14 +39,16 @@ import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.c
 @NgModule({
   declarations: [
     ShellComponent,
-    ModalLoginComponent,
-    ModalRegisterComponent,
+
+    MODALS,
+
     HomeComponent,
     PostComponent,
     ProfileComponent,
+    ActionbuttonComponent,
+
     TaskcardComponent,
     MessagecardComponent,
-    ActionbuttonComponent
   ],
   imports: [
     BrowserModule,
@@ -61,8 +62,7 @@ import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.c
   ],
   entryComponents: [
     ShellComponent,
-    ModalLoginComponent,
-    ModalRegisterComponent
+    MODALS
   ],
   providers: [
     FormValidationsService,

@@ -1,3 +1,4 @@
+import { MessageDetails } from './message.service';
 import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -7,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/toPromise';
-import { AuthenticationService } from './authentication.service';
 
 export interface MessageDetails {
   _id: string;
@@ -28,33 +28,24 @@ export class MessageService {
   private BASE_URL = environment.apiUrl;
   messageArray: MessageDetails[] = [];
 
-  constructor(private http: HttpClient, private auth: AuthenticationService) { }
+  constructor(private http: HttpClient) { }
 
-  public getMessages(postid): Observable<any> {
-    return this.http.get(this.BASE_URL + '/getrecentmessages', { headers: { postid: postid } });
+  public getMessages(postid) {
+    this.http.get(this.BASE_URL + '/getrecentmessages', { headers: { postid: postid } }).subscribe(data => {
+      this.messageArray = data as MessageDetails[];
+    }, err => {
+      console.error(err);
+    });
   }
 
-  // public getLatestPostsObservable() {
-  //   this.http.
-  //     get(this.BASE_URL + '/getrecentposts')
-  //     .subscribe(res => {
-  //       this.postsArray = res;
-  //     }, err => {
-  //       console.error(err);
-  //     });
-  // }
-
-  public getMessage(id): Observable<any> {
-    return this.http.get(this.BASE_URL + '/getpost', { headers: { postid: id } });
+  public postMessage(messageText: string, postId: string, bearer: string, sucFun: Function) {
+    this.http.post(this.BASE_URL + '/postmessage',
+      { postId: postId, messageText: messageText },
+      { headers: { Authorization: `Bearer ${bearer}` } }).subscribe(res => {
+        this.messageArray.push(res as MessageDetails);
+        sucFun();
+      }, err => {
+        console.error(err);
+      });
   }
-
-
-  // public getMyPosts(): Observable<any> {
-  //   return this.http.
-  //     get(
-  //       this.BASE_URL + '/getmyposts',
-  //       { headers: { Authorization: `Bearer ${this.auth.myToken}` } }
-  //     );
-  // }
-
 }

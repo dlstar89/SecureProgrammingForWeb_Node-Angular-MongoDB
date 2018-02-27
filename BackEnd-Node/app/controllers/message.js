@@ -2,16 +2,14 @@ var mongoose = require('mongoose');
 var Message = mongoose.model('message');
 
 function getRecentMessages(req, res) {
-    postId = req.headers['postid'];
-    console.log(req.headers);
-    console.log(postId);
-    Message.find({
+    const postId = req.headers.postid;
+
+    Message
+        .find({
             postId: postId
         })
         .populate('userId', ['name'])
-        // .populate('postId')
-        // .sort('title')
-        .limit(10)
+        // .limit(10)
         .exec(function (err, messages) {
             if (err) {
                 res.send(err);
@@ -21,7 +19,7 @@ function getRecentMessages(req, res) {
 }
 
 function getMessage(req, res) {
-    let postId = req.headers['messageId'];
+    const postId = req.headers.messageId;
 
     Post
         .findOne({
@@ -39,22 +37,30 @@ function getMessage(req, res) {
 function createMessage(req, res) {
     const data = req.body;
 
-    const _id = req.payload._id;
-    const title = data.title;
-    const description = data.description;
+    const user_id = req.payload._id;
+    const postId = data.postId;
+    const messageText = data.messageText;
 
-    var post = new Post({
-        author: _id,
-        title: title,
-        description: description
+    var message = new Message({
+        userId: user_id,
+        postId: postId,
+        messageText: messageText
     });
 
-    post.save(function (err) {
+    message.save(function (err) {
         if (err) throw err;
 
-        res.json({
-            success: 'OK'
-        });
+        Message
+            .findOne({
+                _id: message._id
+            })
+            .populate('userId', ['name'])
+            .exec(function (err, message) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(message);
+            });
     });
 }
 

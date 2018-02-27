@@ -1,0 +1,57 @@
+<div>
+  <form (ngSubmit)='onSubmit()' [formGroup]='form' #myForm="ngForm">
+    <h2 style="text-align: center;">NEW POST</h2>
+
+    <mat-form-field>
+      <input
+        formControlName='title'
+        required
+        matInput
+        placeholder="Title"
+        [(ngModel)]='newPost.title'>
+        <mat-error *ngIf='!form.controls.title.valid'>
+          Please enter valid title e.g: Solve c# error
+        </mat-error>
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field>
+      <input
+        formControlName='shortDescription'
+        required
+        matInput
+        placeholder="Short Description"
+        [(ngModel)]='newPost.shortDescription'
+      >
+      <mat-error *ngIf='!form.controls.shortDescription.valid'>
+        Enter something for the Short Description
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field>
+      <textarea
+        formControlName='fullDescription'
+        required
+        matInput
+        placeholder='Full Description'
+        [(ngModel)]='newPost.fullDescription'
+      >
+      </textarea>
+
+      <mat-error *ngIf='!form.controls.fullDescription.valid'>
+        Enter full description of the post
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+    <br>
+
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!myForm.form.valid">POST</button>
+      <button mat-raised-button color="accent" type="reset" (click)='closeDialog()' style="float: right;">CANCEL</button>
+    </div>
+  </form>
+</div>

@@ -12,19 +12,13 @@
       <mat-card-subtitle>{{task?.author?.name}}</mat-card-subtitle>
     </mat-card>
     <mat-card class="center" style="width: 80%;">
-        <mat-card-title>DESCRIPTION</mat-card-title>
-        <mat-card-content>{{task?.fullDescription}}</mat-card-content>
-      </mat-card>
+      <mat-card-title>DESCRIPTION</mat-card-title>
+      <mat-card-content>{{task?.fullDescription}}</mat-card-content>
+    </mat-card>
   </div>
 
   <div id="right">
-    <h1 class="CenterFancyText">MESSAGES</h1>
-
-    <app-messagecard
-      *ngFor="let message of messages"
-        [message] = 'message'
-      >
-    </app-messagecard>
-
+    <h1 class="CenterFancyText">REPLIES</h1>
+    <app-messagecard *ngFor="let message of messageSevice.messageArray" [message]='message'></app-messagecard>
   </div>
 </div>
