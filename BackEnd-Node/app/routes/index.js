@@ -1,17 +1,17 @@
-var config = require('../../config');
-var express = require('express');
-var jwt = require('express-jwt');
+const config = require('config');
+const express = require('express');
+const jwt = require('express-jwt');
 
-var authentication = require('../controllers/authentication');
-var profile = require('../controllers/profile');
-var post = require('../controllers/post');
-var message = require('../controllers/message');
+const authentication = require('../controllers/authentication');
+const profile = require('../controllers/profile');
+const post = require('../controllers/post');
+const message = require('../controllers/message');
 
-let seeder = require('../seedData');
+const seeder = require('../seedData');
 
 var routes = express.Router();
 
-var auth = jwt({
+const auth = jwt({
     secret: config.jwtSecret,
     userProperty: 'payload'
 });
@@ -22,27 +22,35 @@ routes.get("/", (req, res) => res.json({
 }));
 
 /**GET */
-routes.get("/users/:id?", authentication.getUsers);
-routes.get('/setup', seeder.seedDBData);
 
+if (config.util.getEnv('NODE_ENV') === 'dev' || config.util.getEnv('NODE_ENV') === 'test') {
+    routes.get("/users/:id?", authentication.getUsers);
+    routes.get('/setup', seeder.seedDBData);
+}
+
+//Profile
+routes.get('/profile', auth, profile.profileRead);
+
+//Post
 routes.get('/getRecentPosts', post.getRecentPosts);
 routes.get('/getPost/:id?', post.getPost);
+routes.get('/getUserPosts', auth, post.getUserPosts);
 
+//Message
 routes.get('/getRecentMessages', message.getRecentMessages);
 routes.get('/getMessage/:id?', message.getMessage);
 
-routes.get('/profile', auth, profile.profileRead);
-routes.get('/getMyPosts', auth, profile.getMyPosts);
-
+/*=============================================================*/
 /**POST */
-routes.post("/login", authentication.loginUser);
+//Authentication
 routes.post("/register", authentication.registerUser);
+routes.post("/login", authentication.loginUser);
 
+//Post
 routes.post("/createpost", auth, post.createPost);
 
+//Message
 routes.post("/postmessage", auth, message.createMessage);
-
-
 
 
 module.exports = {

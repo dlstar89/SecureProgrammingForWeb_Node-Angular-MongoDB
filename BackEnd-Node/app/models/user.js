@@ -1,5 +1,5 @@
 // get an instance of mongoose and mongoose.Schema
-let config = require('../../config');
+let config = require('config');
 let crypto = require('crypto');
 let jwt = require('jsonwebtoken');
 let mongoose = require('mongoose');
@@ -15,6 +15,11 @@ let userSchema = new Schema({
         type: String,
         required: true
     },
+    password: {
+        type: String,
+        required: true
+    },
+
     hash: String,
     salt: String,
     userRole: String,
@@ -25,11 +30,7 @@ let userSchema = new Schema({
     lastUpdatedOn: {
         type: Date,
         default: Date.now
-    },
-    password: {
-        type: String,
-        required: false
-    },
+    }
 }, {
     versionKey: false
 });

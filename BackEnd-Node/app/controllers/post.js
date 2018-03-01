@@ -62,6 +62,49 @@ function getPost(req, res) {
         });
 }
 
+function getUserPosts(req, res) {
+    const _id = req.payload._id;
+
+    Post
+        .find({
+            author: _id
+        })
+        .sort({
+            postedOn: -1
+        })
+        .exec()
+        .then(function (posts) {
+            return Promise.all([
+                posts,
+                Message.find({
+                    postId: {
+                        $in: posts.map(function (post) {
+                            return post._id;
+                        })
+                    }
+                }).exec()
+            ]);
+        })
+        .then(function (results) {
+            var posts = results[0];
+            var messages = results[1];
+            posts.forEach(function (post) {
+                post.messages = messages.filter(function (message) {
+                    // return message.postId.equals(post._id);
+                    if (message.postId.equals(post._id)) {
+                        post.totalMessages++;
+                    }
+                });
+            });
+
+            res.json(posts);
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json(err);
+        });
+}
+
 function createPost(req, res) {
     const data = req.body;
 
@@ -88,5 +131,6 @@ function createPost(req, res) {
 module.exports = {
     getRecentPosts,
     getPost,
+    getUserPosts,
     createPost
 };

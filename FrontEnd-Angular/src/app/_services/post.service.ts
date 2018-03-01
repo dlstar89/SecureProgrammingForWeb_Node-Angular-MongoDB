@@ -67,8 +67,8 @@ export class PostService {
       );
   }
 
-  public getMyPosts() {
-    this.http.get(this.BASE_URL + '/getmyposts', { headers: { Authorization: `Bearer ${this.auth.myToken}` } }
+  public getUserPosts() {
+    this.http.get(this.BASE_URL + '/getuserposts', { headers: { Authorization: `Bearer ${this.auth.myToken}` } }
     ).subscribe(data => {
       this.myPostsArray = data as PostDetails[];
     }, err => {

@@ -1,0 +1,3 @@
+{
+    "mongoDB": "mongodb://localhost:6000/data"
+}

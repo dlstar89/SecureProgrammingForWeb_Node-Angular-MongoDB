@@ -18,13 +18,13 @@ function registerUser(req, res) {
 
     user.name = req.body.name;
     user.email = req.body.email;
-    user.password = req.body.password
+    user.password = req.body.password;
     // user.setPassword(req.body.password);
 
     user.save(function (err) {
         //New user might be using a non unique email which might return an error
         if (err) {
-            res.status(999).json({error: "dupEmail aaaaaa"});
+            res.status(999).json(err);
             return;
         }
 
