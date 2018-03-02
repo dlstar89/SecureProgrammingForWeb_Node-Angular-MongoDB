@@ -4,6 +4,14 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ShellComponent } from './shell.component';
+import { ActionbuttonComponent } from '../componenets/actionbutton/actionbutton.component';
+
+import { MaterialModule } from '../_modules/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AuthenticationService } from './../_services/authentication.service';
 
 describe('ShellComponent', () => {
   let component: ShellComponent;
@@ -11,9 +19,11 @@ describe('ShellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShellComponent ]
+      imports: [MaterialModule, RouterTestingModule, HttpClientModule, BrowserAnimationsModule],
+      providers: [AuthenticationService],
+      declarations: [ShellComponent, ActionbuttonComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -14,13 +14,13 @@ let sanitizer = require('./app/middleware/sanitizer');
 require('./app/models/db');
 
 //initiazlie passport configuration
-require('./app/config/passport');
+require('./app/passportconfig/passport');
 
 /**Routes Imports */
 let routes = require('./app/routes/index');
 
 /**CONFIGURATION */
-var port = process.env.PORT || 8080;
+let port = process.env.PORT || 8080;
 mongoose.connect(config.mongoDB);
 
 if (config.util.getEnv('NODE_ENV') !== 'test') {

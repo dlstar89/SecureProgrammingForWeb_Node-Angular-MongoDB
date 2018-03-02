@@ -24,8 +24,8 @@ export class PostComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const postId = this.route.snapshot.params['id'];
 
-    this.postService.getPost(postId).subscribe(data => {
-      this.task = data;
+    this.postService.getPost(postId, res => {
+      this.task = res;
     });
 
     this.messageSevice.getMessages(postId);

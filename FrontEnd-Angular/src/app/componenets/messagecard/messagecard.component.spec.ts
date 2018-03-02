@@ -1,3 +1,4 @@
+import { MaterialModule } from './../../_modules/material.module';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -11,6 +12,7 @@ describe('MessagecardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MaterialModule],
       declarations: [ MessagecardComponent ]
     })
     .compileComponents();

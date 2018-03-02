@@ -4,6 +4,15 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { HomeComponent } from './home.component';
+import { TaskcardComponent } from '../../componenets/taskcard/taskcard.component';
+
+import { MaterialModule } from '../../_modules/material.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { PostService } from '../../_services/post.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AuthenticationService } from './../../_services/authentication.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,9 +20,11 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      imports: [RouterTestingModule, MaterialModule, HttpClientModule, BrowserAnimationsModule],
+      providers: [PostService, AuthenticationService],
+      declarations: [HomeComponent, TaskcardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

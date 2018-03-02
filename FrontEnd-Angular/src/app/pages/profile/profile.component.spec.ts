@@ -4,6 +4,16 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ProfileComponent } from './profile.component';
+import { TaskcardComponent } from '../../componenets/taskcard/taskcard.component';
+
+import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '../../_modules/material.module';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { PostService } from '../../_services/post.service';
+import { AuthenticationService } from './../../_services/authentication.service';
+
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -11,9 +21,11 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ]
+      imports: [RouterTestingModule, MaterialModule, HttpClientModule, BrowserAnimationsModule],
+      providers: [PostService, AuthenticationService],
+      declarations: [ProfileComponent, TaskcardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

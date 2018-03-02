@@ -1,12 +1,11 @@
 import { ModalNewMessageComponent } from './../../modals/modalNewMessage/modalNewMessage.component';
-import { AuthenticationService } from './../../_services/authentication.service';
 import { buttonAnimation } from './../../_animations/angularAnimations';
 import { Component, OnInit, Output } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 import { ModalNewPostComponent } from '../../modals/modalNewPost/modalNewPost.component';
 import { MatDialog } from '@angular/material';
-import { PostService } from '../../_services/post.service';
+
 @Component({
   selector: 'app-actionbutton',
   templateUrl: './actionbutton.component.html',
@@ -25,8 +24,6 @@ export class ActionbuttonComponent implements OnInit {
   };
 
   constructor(
-    public auth: AuthenticationService,
-    public postService: PostService,
     private router: Router,
     public dialog: MatDialog
   ) { }

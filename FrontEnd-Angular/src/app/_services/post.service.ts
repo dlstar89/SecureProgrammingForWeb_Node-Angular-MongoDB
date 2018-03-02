@@ -59,12 +59,14 @@ export class PostService {
       });
   }
 
-  public getPost(id): Observable<any> {
-    return this.http.
-      get(
-        this.BASE_URL + '/getpost',
-        { headers: { postid: id } }
-      );
+  public getPost(id, _suc: Function) {
+    this.http
+      .get(this.BASE_URL + '/getpost', { headers: { postid: id } })
+      .subscribe(res => {
+        _suc(res);
+      }, err => {
+        console.error(err);
+      });
   }
 
   public getUserPosts() {
