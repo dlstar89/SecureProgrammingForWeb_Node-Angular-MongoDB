@@ -18,21 +18,16 @@ describe('PostComponent', () => {
   let component: PostComponent;
   let fixture: ComponentFixture<PostComponent>;
 
-  // beforeEach(async(() => {
-  //   TestBed.configureTestingModule({
-  //     imports: [RouterTestingModule, MaterialModule, HttpClientModule],
-  //     providers: [PostService, AuthenticationService, MessageService],
-  //     declarations: [PostComponent, MessagecardComponent]
-  //   })
-  //     .compileComponents();
-  // }));
-
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, MaterialModule, HttpClientModule],
       providers: [PostService, AuthenticationService, MessageService],
       declarations: [PostComponent, MessagecardComponent]
-    });
+    })
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(PostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

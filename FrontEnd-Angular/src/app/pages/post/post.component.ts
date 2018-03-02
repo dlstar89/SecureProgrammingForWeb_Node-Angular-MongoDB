@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostDetails } from '../../_services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators/map';
-import { MessageService } from '../../_services/message.service';
+import { MessageService, MessageDetails } from '../../_services/message.service';
 
 @Component({
   selector: 'app-post',
@@ -14,27 +14,24 @@ export class PostComponent implements OnInit, OnDestroy {
 
   task: PostDetails;
 
-  messages = [];
-
   constructor(
     private postService: PostService,
     public messageSevice: MessageService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const postId = this.route.snapshot.params['id'];
+    let postId = '';
 
-    this.postService.getPost(postId, res => {
-      this.task = res;
+    if (this.route.snapshot.params['id']) {
+      postId = this.route.snapshot.params['id'];
+    }
+
+    this.postService.getPost(postId, data => {
+      this.task = data as PostDetails;
     });
 
     this.messageSevice.getMessages(postId);
-
-    // console.log(postId);
   }
 
-  ngOnDestroy(): void {
-
-  }
-
+  ngOnDestroy() { }
 }

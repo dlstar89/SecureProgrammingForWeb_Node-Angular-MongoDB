@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../_services/authentication.service';
 import { ModalNewMessageComponent } from './../../modals/modalNewMessage/modalNewMessage.component';
 import { buttonAnimation } from './../../_animations/angularAnimations';
 import { Component, OnInit, Output } from '@angular/core';
@@ -25,6 +26,7 @@ export class ActionbuttonComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public auth: AuthenticationService,
     public dialog: MatDialog
   ) { }
 
