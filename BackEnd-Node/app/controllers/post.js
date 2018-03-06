@@ -45,7 +45,7 @@ function getRecentPosts(req, res) {
 }
 
 function getPost(req, res) {
-    const postId = req.headers.postid;
+    const postId = req.headers.postid || req.params.id;
 
     Post
         .findOne({

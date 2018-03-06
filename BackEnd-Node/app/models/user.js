@@ -5,6 +5,66 @@ let jwt = require('jsonwebtoken');
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
+/**
+ * @swagger
+ * definitions:
+ *   Token:
+ *     type: object
+ *     properties:
+ *       token:
+ *         type: string
+ *   NewUser:
+ *     type: object
+ *     required:
+ *       - name
+ *       - email
+ *       - password
+ *     properties:
+ *       name:
+ *         type: string
+ *         emaple: 'Bob Paguhskij'
+ *       email:
+ *         type: string
+ *         example: 'b@p.bp'
+ *       password:
+ *         type: string
+ *         format: password
+ *         example: 'pass1'
+ * 
+ *   User:
+ *     type: object
+ *     properties:
+ *       name:
+ *         type: string
+ *       email:
+ *         type: string
+ *
+ */
+
+/**
+ * @swagger
+ * parameters:
+ *   name:
+ *     type: string
+ *     name: name
+ *     in: formData
+ *     required: true
+ *     example: 'Bill Starovski'
+ *   email:
+ *     type: string
+ *     name: email
+ *     in: formData
+ *     required: true
+ *     example: 'a@b.ab'
+ *   password:
+ *     type: string
+ *     name: password
+ *     in: formData
+ *     required: true
+ *     format: password
+ *     example: 'pass1'
+ */
+
 let userSchema = new Schema({
     email: {
         type: String,

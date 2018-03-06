@@ -2,6 +2,41 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
+
+/**
+ * @swagger
+ * definitions:
+ *   NewMessage:
+ *     type: object
+ *     required:
+ *       - postId
+ *       - messageText
+ *     properties:
+ *       userId:
+ *         type: string
+ *       postId:
+ *         type: string
+ *       messageText:
+ *         type: string
+ */
+
+/**
+ * @swagger
+ * parameters:
+ *   postId:
+ *     type: string
+ *     name: postId
+ *     in: formData
+ *     required: true
+ *     example: '5a9e82f5ffc41fd603bc09fa'
+ *   messageText:
+ *     type: string
+ *     name: messageText
+ *     in: formData
+ *     required: true
+ *     example: 'Some message for the post'
+ */
+
 let messageSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
@@ -30,14 +65,4 @@ let messageSchema = new Schema({
     versionKey: false
 });
 
-
-// Pre save checks
-// postSchema.pre('save', function (next) {
-//     var message = this;
-
-//     next();
-// });
-
-
-//Export User schema
 module.exports = mongoose.model('message', messageSchema);

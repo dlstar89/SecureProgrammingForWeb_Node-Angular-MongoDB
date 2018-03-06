@@ -2,6 +2,56 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
+/**
+ * @swagger
+ * definitions:
+ *   NewPost:
+ *     type: object
+ *     required:
+ *       - author
+ *       - title
+ *       - shortDescription
+ *       - fullDescription
+ *     properties:
+ *       author:
+ *         type: string
+ *       title:
+ *         type: string
+ *       shortDescription:
+ *         type: string
+ *       fullDescription:
+ *         type: string
+ *       messages:
+ *         type: array
+ *         schema:
+ *          type: array
+ *          items:
+ *            $ref: '#/definitions/NewMessage'
+ */
+
+/**
+ * @swagger
+ * parameters:
+ *   title:
+ *     type: string
+ *     name: title
+ *     in: formData
+ *     required: true
+ *     example: 'Some Title'
+ *   shortDescription:
+ *     type: string
+ *     name: shortDescription
+ *     in: formData
+ *     required: true
+ *     example: 'Short description of the post'
+ *   fullDescription:
+ *     type: string
+ *     name: fullDescription
+ *     in: formData
+ *     required: true
+ *     example: 'Full decription of the post'
+ */
+
 var postSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
