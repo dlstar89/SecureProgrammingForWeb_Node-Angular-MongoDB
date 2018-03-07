@@ -157,5 +157,23 @@ describe('Post', function () {
                     });
             });
         });
+
+        it('it should FAIL CREATE new POST without JWT', (done) => {
+            let post = {
+                userId: '123abc',
+                title: 'Test Title',
+                shortDescription: 'Test short description',
+                fullDescription: 'Test full description'
+            };
+
+            chai.request(server)
+                .post('/api/createpost')
+                .send(post)
+                .end((err, res) => {
+                    res.should.have.status(401);
+
+                    done();
+                });
+        });
     });
 });
