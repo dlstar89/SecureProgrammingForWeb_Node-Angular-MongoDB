@@ -1,5 +1,5 @@
 FULL STACK PROJECT
 
-BackEnd-Node -> nodemon server.js
+BackEnd-Node -> npm start
 
 FrontEnd-Angular -> npm start

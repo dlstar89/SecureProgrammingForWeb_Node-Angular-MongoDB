@@ -53,7 +53,7 @@ let Schema = mongoose.Schema;
  */
 
 var postSchema = new Schema({
-    author: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'user',
         required: true

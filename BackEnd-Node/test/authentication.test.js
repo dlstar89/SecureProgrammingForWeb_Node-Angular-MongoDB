@@ -30,7 +30,7 @@ describe('Authentication', function () {
     });
 
     describe('/POST user', () => {
-        it('it should CREATE new user', (done) => {
+        it('it should CREATE new USER and return a TOKEN', (done) => {
 
             const newUser = {
                 name: 'Bob',
@@ -51,7 +51,6 @@ describe('Authentication', function () {
         });
 
         it('it should FAIL CREATING new user with existing email', (done) => {
-
             const newUser = {
                 name: 'Bob',
                 email: 'a@b.ab',
@@ -64,7 +63,7 @@ describe('Authentication', function () {
                 .end((err, res) => {
                     res.should.have.status(999);
                     res.body.should.be.a('object');
-                    // res.body.should.have.property('error');
+                    res.body.code.should.eql(11000);
 
                     done();
                 });
@@ -91,7 +90,7 @@ describe('Authentication', function () {
         it('it should NOT LOGIN user with wrong PASSWORD', (done) => {
             const user = {
                 email: 'a@b.ab',
-                password: 'qweqweqwe'
+                password: 'pass2'
             };
 
             chai.request(server)
@@ -100,11 +99,9 @@ describe('Authentication', function () {
                 .end((err, res) => {
                     res.should.have.status(401);
                     res.body.should.be.a('object');
-                    // res.body.should.have.property('token');
 
                     done();
                 });
         });
     });
-
 });

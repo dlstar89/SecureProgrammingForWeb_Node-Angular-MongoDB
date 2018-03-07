@@ -63,7 +63,7 @@ if (config.util.getEnv('NODE_ENV') === 'dev' || config.util.getEnv('NODE_ENV') =
      * /users:
      *   get:
      *     description: Returns all users
-     *     tags: [Users]
+     *     tags: [Users,EntryPoint]
      *     responses:
      *       200:
      *         description: Returns array of users

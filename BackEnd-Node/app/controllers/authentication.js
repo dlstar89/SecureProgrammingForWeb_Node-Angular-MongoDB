@@ -22,18 +22,17 @@ function registerUser(req, res) {
     // user.setPassword(req.body.password);
 
     user.save(function (err) {
-        //New user might be using a non unique email which might return an error
         if (err) {
-            res.status(999).json(err);
+            res.status(999)
+                .json(err);
             return;
         }
 
-        var token;
-        token = user.generateJwt();
-        res.status(200);
-        res.json({
-            "token": token
-        });
+        let token = user.generateJwt();
+        res.status(200)
+            .json({
+                "token": token
+            });
     });
 }
 
@@ -50,10 +49,10 @@ function loginUser(req, res) {
         // If a user is found
         if (user) {
             token = user.generateJwt();
-            res.status(200);
-            res.json({
-                "token": token
-            });
+            res.status(200)
+                .json({
+                    "token": token
+                });
         } else {
             // If user is not found
             res.status(401).json(info);

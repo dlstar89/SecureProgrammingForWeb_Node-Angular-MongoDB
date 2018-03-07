@@ -67,7 +67,7 @@ function getUserPosts(req, res) {
 
     Post
         .find({
-            author: _id
+            userId: _id
         })
         .sort({
             postedOn: -1
@@ -108,14 +108,14 @@ function getUserPosts(req, res) {
 function createPost(req, res) {
     const data = req.body;
 
-    const author_id = req.payload._id;
+    const userId = req.payload._id;
     const title = data.title;
     const shortDescription = data.shortDescription;
     const fullDescription = data.fullDescription;
 
 
     var post = new Post({
-        author: author_id,
+        userId: userId,
         title: title,
         shortDescription: shortDescription,
         fullDescription: fullDescription
