@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material';
 export class ActionbuttonComponent implements OnInit {
 
   @Output() notifyParent: EventEmitter<any> = new EventEmitter();
-  modalConfig = { width: '100%', position: { top: '0px' } };
+  modalConfig = { width: '99%', position: { top: '0px' } };
   display = false;
   currentLocation = '';
   locations = {

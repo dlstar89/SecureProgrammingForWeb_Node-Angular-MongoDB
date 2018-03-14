@@ -3,6 +3,10 @@ let LocalStrategy = require('passport-local').Strategy;
 let mongoose = require('mongoose');
 let User = mongoose.model('user');
 
+/**
+ * Implements LocalStrategy way of authenticating user
+ * @param {string} email
+ */
 passport.use(new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
         usernameField: 'email',

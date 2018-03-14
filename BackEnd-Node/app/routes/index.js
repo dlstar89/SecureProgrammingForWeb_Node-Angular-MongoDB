@@ -192,8 +192,6 @@ routes.get('/getUserPosts', auth, post.getUserPosts);
  */
 routes.get('/getRecentMessages', message.getRecentMessages);
 
-routes.get('/getMessage/:id?', message.getMessage);
-
 /*=============================================================*/
 /*POST */
 //Authentication

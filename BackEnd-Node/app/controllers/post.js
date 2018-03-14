@@ -2,6 +2,11 @@ var mongoose = require('mongoose');
 var Post = mongoose.model('post');
 var Message = mongoose.model('message');
 
+/**
+ * Returns most recent messages
+ * @param {json} req 
+ * @param {json} res 
+ */
 function getRecentPosts(req, res) {
     Post
         .find({})
@@ -44,6 +49,11 @@ function getRecentPosts(req, res) {
         });
 }
 
+/**
+ * Returns post by its id
+ * @param {json} req 
+ * @param {json} res
+ */
 function getPost(req, res) {
     const postId = req.headers.postid || req.params.id;
 
@@ -62,6 +72,11 @@ function getPost(req, res) {
         });
 }
 
+/**
+ *Returns all posts for given user id
+ * @param {json} req 
+ * @param {json} res 
+ */
 function getUserPosts(req, res) {
     const _id = req.payload._id;
 
@@ -105,6 +120,15 @@ function getUserPosts(req, res) {
         });
 }
 
+/**
+ * Creates new post asociated with user id
+ * @param {json} req 
+ * @property {string} req.body.title
+ * @property {string} req.body.shortDescription
+ * @property {string} req.body.fullDescription
+ * 
+ * @param {json} res 
+ */
 function createPost(req, res) {
     const data = req.body;
 

@@ -65,6 +65,9 @@ let Schema = mongoose.Schema;
  *     example: 'pass1'
  */
 
+/**
+ * USER SCHEMA
+ */
 let userSchema = new Schema({
     email: {
         type: String,

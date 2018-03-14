@@ -2,7 +2,11 @@ var mongoose = require('mongoose');
 var User = mongoose.model('user');
 var Post = mongoose.model('post');
 var Message = mongoose.model('message');
-
+/**
+ * Returns user profile
+ * @param {json} req 
+ * @param {json} res 
+ */
 function profileRead(req, res) {
     // If no user ID exists in the JWT return a 401
     if (!req.payload._id) {

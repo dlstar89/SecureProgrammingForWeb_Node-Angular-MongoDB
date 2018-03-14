@@ -4,7 +4,7 @@
   "description": "Server with MongoDB",
   "main": "server.js",
   "scripts": {
-    "lint": "eslint src/js",
+    "lint": "./node_modules/.bin/eslint app/*js",
     "start": "export NODE_ENV=dev && nodemon server.js",
     "test": "export NODE_ENV=test && mocha --timeout 120000 --exit"
   },
@@ -26,6 +26,14 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
-    "mocha": "^5.0.1"
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^5.0.1",
+    "mockgoose": "^7.3.5",
+    "nodemon": "^1.17.1"
   }
 }

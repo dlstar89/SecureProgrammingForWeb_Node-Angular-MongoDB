@@ -10,6 +10,7 @@ let mongoose = require('mongoose');
 let passport = require('passport');
 let sanitizer = require('./app/middleware/sanitizer');
 
+
 // initializes mongoose models
 require('./app/models/db');
 
@@ -21,7 +22,19 @@ let routes = require('./app/routes/index');
 
 /**CONFIGURATION */
 let port = process.env.PORT || 8080;
-mongoose.connect(config.mongoDB);
+
+//Use in memory mongo database for tests to avoid creating new mongodb instance
+if (config.util.getEnv('NODE_ENV') === 'test') {
+    let Mockgoose = require('mockgoose').Mockgoose;
+    let mockgoose = new Mockgoose(mongoose);
+    mockgoose.prepareStorage().then(function () {
+        mongoose.connect(config.mongoDB);
+    });
+} else {
+    mongoose.connect(config.mongoDB);
+}
+
+
 
 if (config.util.getEnv('NODE_ENV') !== 'test') {
     // use morgan to log requests to the console
@@ -36,10 +49,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(cors());
 
-
-let swaggerRoute = require ('./app/routes/swagger.js');
-app.use(swaggerRoute.routes);
-
+app.use(require('./app/routes/swagger.js').routes);
 
 // initialize passport
 app.use(passport.initialize());
@@ -58,9 +68,8 @@ app.use(function (err, req, res, next) {
 });
 
 
-
-exports = module.exports = app;
-
 /**Start Server */
 app.listen(port);
 console.log('Server running on http://localhost:' + port);
+
+module.exports = app;
