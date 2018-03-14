@@ -1,4 +1,4 @@
-const config = require('config');
+const path = require('path');
 const express = require('express');
 var routes = express.Router();
 
@@ -9,26 +9,26 @@ let swaggerJSDoc = require('swagger-jsdoc');
 // You can set every attribute except paths and swagger
 // https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md
 var swaggerDefinition = {
-    info: { // API informations (required)
-        title: 'Job Posting API', // Title (required)
-        version: '1.0.0', // Version (required)
-        description: 'API', // Description (optional)
-    },
-    host: 'localhost:8080', // Host (optional)
-    basePath: '/api', // Base path (optional)
+  info: { // API informations (required)
+    title: 'Job Posting API', // Title (required)
+    version: '1.0.0', // Version (required)
+    description: 'API' // Description (optional)
+  },
+  host: 'localhost:8080', // Host (optional)
+  basePath: '/api' // Base path (optional)
 };
 
 // Options for the swagger docs
 var options = {
-    // Import swaggerDefinitions
-    swaggerDefinition: swaggerDefinition,
-    // Path to the API docs
-    apis: [
-        // __dirname + '/parameters.yaml',
-        __dirname + '/index.js',
-        __dirname + '/../models/*.js'
-    ],
-    explorer: false
+  // Import swaggerDefinitions
+  swaggerDefinition: swaggerDefinition,
+  // Path to the API docs
+  apis: [
+    // __dirname + '/parameters.yaml',
+    returnFullPath('/index.js'),
+    returnFullPath('/../models/*.js')
+  ],
+  explorer: false
 };
 
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
@@ -36,17 +36,17 @@ var swaggerSpec = swaggerJSDoc(options);
 
 // console.log(swaggerSpec);
 routes.get('/api-docs.json', function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(swaggerSpec);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
 });
 
 routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-
-
-
+function returnFullPath (_path) {
+  return path.join(__dirname, _path);
+}
 // app.use('/api/v1', routes.routes);
 
 module.exports = {
-    routes
+  routes
 };

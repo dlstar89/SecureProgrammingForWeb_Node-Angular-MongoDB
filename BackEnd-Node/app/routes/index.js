@@ -12,8 +12,8 @@ const seeder = require('../seedData');
 var routes = express.Router();
 
 const auth = jwt({
-    secret: config.jwtSecret,
-    userProperty: 'payload'
+  secret: config.jwtSecret,
+  userProperty: 'payload'
 });
 
 /**
@@ -50,15 +50,14 @@ const auth = jwt({
  *       200:
  *         description: Hello from API!
  */
-routes.get("/", (req, res) => res.json({
-    // message: "Hello! The API is at http://localhost:" + port + "/api"
-    message: "Hello from API!"
+routes.get('/', (req, res) => res.json({
+  // message: "Hello! The API is at http://localhost:" + port + "/api"
+  message: 'Hello from API!'
 }));
 
-
-//**Extra APIS for DEV environment */
+//* *Extra APIS for DEV environment */
 if (config.util.getEnv('NODE_ENV') === 'dev' || config.util.getEnv('NODE_ENV') === 'test') {
-    /**
+  /**
      * @swagger
      * /users:
      *   get:
@@ -72,9 +71,9 @@ if (config.util.getEnv('NODE_ENV') === 'dev' || config.util.getEnv('NODE_ENV') =
      *          items:
      *            $ref: '#/definitions/User'
      */
-    routes.get("/users/:id?", authentication.getUsers);
+  routes.get('/users/:id?', authentication.getUsers);
 
-    /**
+  /**
      * @swagger
      * /setup:
      *   get:
@@ -84,10 +83,10 @@ if (config.util.getEnv('NODE_ENV') === 'dev' || config.util.getEnv('NODE_ENV') =
      *       200:
      *         description: DB Initialised
      */
-    routes.get('/setup', seeder.seedDBData);
+  routes.get('/setup', seeder.seedDBData);
 }
 
-//Profile
+// Profile
 // security:
 // - Bearer: []
 
@@ -108,7 +107,7 @@ if (config.util.getEnv('NODE_ENV') === 'dev' || config.util.getEnv('NODE_ENV') =
  */
 routes.get('/profile', auth, profile.profileRead);
 
-//Post
+// Post
 /**
  * @swagger
  * /getrecentposts:
@@ -166,7 +165,7 @@ routes.get('/getPost/:id?', post.getPost);
  */
 routes.get('/getUserPosts', auth, post.getUserPosts);
 
-//Message
+// Message
 /**
  * @swagger
  * /getRecentMessages:
@@ -192,9 +191,9 @@ routes.get('/getUserPosts', auth, post.getUserPosts);
  */
 routes.get('/getRecentMessages', message.getRecentMessages);
 
-/*=============================================================*/
-/*POST */
-//Authentication
+/* ============================================================= */
+/* POST */
+// Authentication
 /**
  * @swagger
  * /register:
@@ -215,7 +214,7 @@ routes.get('/getRecentMessages', message.getRecentMessages);
  *       999:
  *         description: email already used by other user
  */
-routes.post("/register", authentication.registerUser);
+routes.post('/register', authentication.registerUser);
 
 /**
  * @swagger
@@ -234,7 +233,7 @@ routes.post("/register", authentication.registerUser);
  *         schema:
  *          $ref: '#/definitions/Token'
  */
-routes.post("/login", authentication.loginUser);
+routes.post('/login', authentication.loginUser);
 
 /**
  * @swagger
@@ -255,7 +254,7 @@ routes.post("/login", authentication.loginUser);
  *         schema:
  *           $ref: '#/definitions/NewPost'
  */
-routes.post("/createpost", auth, post.createPost);
+routes.post('/createpost', auth, post.createPost);
 
 /**
  * @swagger
@@ -275,9 +274,8 @@ routes.post("/createpost", auth, post.createPost);
  *         schema:
  *           $ref: '#/definitions/NewMessage'
  */
-routes.post("/postmessage", auth, message.createMessage);
-
+routes.post('/postmessage', auth, message.createMessage);
 
 module.exports = {
-    routes
+  routes
 };

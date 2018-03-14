@@ -30,7 +30,7 @@ let Schema = mongoose.Schema;
  *         type: string
  *         format: password
  *         example: 'pass1'
- * 
+ *
  *   User:
  *     type: object
  *     properties:
@@ -38,7 +38,6 @@ let Schema = mongoose.Schema;
  *         type: string
  *       email:
  *         type: string
- *
  */
 
 /**
@@ -69,71 +68,82 @@ let Schema = mongoose.Schema;
  * USER SCHEMA
  */
 let userSchema = new Schema({
-    email: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
 
-    hash: String,
-    salt: String,
-    userRole: String,
-    createdOn: {
-        type: Date,
-        default: Date.now
-    },
-    lastUpdatedOn: {
-        type: Date,
-        default: Date.now
-    }
+  hash: String,
+  salt: String,
+  userRole: String,
+  createdOn: {
+    type: Date,
+    default: Date.now
+  },
+  lastUpdatedOn: {
+    type: Date,
+    default: Date.now
+  }
 }, {
-    versionKey: false
+  versionKey: false
 });
 
+/**
+ * Sets user password by hashing and salting it
+ *
+ * @param {string} password
+ */
 userSchema.methods.setPassword = function (password) {
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-    this.password = undefined;
+  this.salt = crypto.randomBytes(16).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+  this.password = undefined;
 };
 
+/**
+ * Validates user password
+ *
+ * @param {any} password
+ * @returns {boolean}
+ */
 userSchema.methods.validPassword = function (password) {
-    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-    return this.hash === hash;
+  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+  return this.hash === hash;
 };
-
+/**
+ * Generates JWT
+ *
+ * @returns {string}
+ */
 userSchema.methods.generateJwt = function () {
-    var expiry = new Date();
-    expiry.setDate(expiry.getDate() + 7);
+  var expiry = new Date();
+  expiry.setDate(expiry.getDate() + 7);
 
-    return jwt.sign({
-        _id: this._id,
-        email: this.email,
-        name: this.name,
-        exp: parseInt(expiry.getTime() / 1000),
-    }, config.jwtSecret); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  return jwt.sign({
+    _id: this._id,
+    email: this.email,
+    name: this.name,
+    exp: parseInt(expiry.getTime() / 1000)
+  }, config.jwtSecret); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };
 
 // Pre save checks
 userSchema.pre('save', function (next) {
-    var user = this;
-    if (user.createdOn === undefined)
-        this.createdOn = new Date();
-    if (user.lastUpdatedOn === undefined)
-        this.lastUpdatedOn = new Date();
-    if (user.password)
-        user.setPassword(user.password);
+  var user = this;
+  if (user.createdOn === undefined) { this.createdOn = new Date(); }
+  if (user.lastUpdatedOn === undefined) { this.lastUpdatedOn = new Date(); }
+  if (user.password) { user.setPassword(user.password); }
 
-    next();
+  next();
 });
 
-
-//Export User schema
+// Export User schema
 module.exports = mongoose.model('user', userSchema);

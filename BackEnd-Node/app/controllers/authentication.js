@@ -2,6 +2,12 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 var User = mongoose.model('user');
 
+/**
+ * Returns all users
+ *
+ * @param {any} req
+ * @param {any} res
+ */
 function getUsers (req, res) {
   let query = User.find({});
   query.exec(function (err, users) {
@@ -14,6 +20,7 @@ function getUsers (req, res) {
 
 /**
  * Registers new user with nique email
+ *
  * @param {obj} req
  * @param {obj} res
  */
@@ -41,9 +48,10 @@ function registerUser (req, res) {
 }
 
 /**
- * Login function
- * @param {obj} req
- * @param {obj} res
+ * Logins user
+ *
+ * @param {any} req
+ * @param {any} res
  */
 function loginUser (req, res) {
   passport.authenticate('local', function (err, user, info) {
