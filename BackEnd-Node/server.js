@@ -1,59 +1,14 @@
 /** Required packages */
-let config = require('config');
 let express = require('express');
 let app = express();
-let bodyParser = require('body-parser');
-let cookieParser = require('cookie-parser');
-let cors = require('cors');
-let morgan = require('morgan');
-let mongoose = require('mongoose');
-let passport = require('passport');
-// let sanitizer = require('./app/middleware/sanitizer');
+let middleware = require('./app/middleware/middlewatesetup');
 
-// initializes mongoose models
-require('./app/models/_models');
-
-// initiazlie passport configuration
-require('./app/passportconfig/passport');
-
-/** Routes Imports */
-let routes = require('./app/routes/index');
-
-/** CONFIGURATION */
-let port = process.env.PORT || 8080;
-
-// Use in memory mongo database for tests to avoid creating new mongodb instance
-if (config.util.getEnv('NODE_ENV') === 'test') {
-  let Mockgoose = require('mockgoose').Mockgoose;
-  let mockgoose = new Mockgoose(mongoose);
-  mockgoose.prepareStorage().then(function () {
-    mongoose.connect(config.mongoDB);
-  });
-} else {
-  mongoose.connect(config.mongoDB);
-}
-
-if (config.util.getEnv('NODE_ENV') !== 'test') {
-  // use morgan to log requests to the console
-  app.use(morgan('dev'));
-}
-
-// use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(cookieParser());
-app.use(cors());
-
-app.use(require('./app/routes/swagger.js').routes);
-
-// initialize passport
-app.use(passport.initialize());
+middleware.setup(app);
 
 // apply routes to the server
-app.use('/api', routes.routes);
+app.use('/api', require('./app/routes/index').routes);
 
+// error message for unauthorized access
 app.use(function (err, req, res, next) {
   // if (err.name === 'UnauthorizedError') {
   if (err.status === 401) {
@@ -65,6 +20,7 @@ app.use(function (err, req, res, next) {
 });
 
 /** Start Server */
+let port = process.env.PORT || 8080;
 app.listen(port);
 console.log('Server running on http://localhost:' + port);
 
