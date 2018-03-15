@@ -4,7 +4,7 @@
   "description": "Server with MongoDB",
   "main": "server.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint app/*js",
+    "lint": "./node_modules/.bin/eslint *js",
     "start": "export NODE_ENV=dev && nodemon server.js",
     "test": "export NODE_ENV=test && mocha --timeout 120000 --exit"
   },

@@ -1,14 +1,16 @@
-let mongoose = require("mongoose");
 let User = require('../app/models/user');
-
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../server');
-let should = chai.should();
 
+/*eslint-disable */
+
+let should = chai.should();
 chai.use(chaiHttp);
 
-/**TESTS */
+
+
+//Tests
 describe('Profile', function () {
     before((done) => {
         User.remove({}, (err) => {
