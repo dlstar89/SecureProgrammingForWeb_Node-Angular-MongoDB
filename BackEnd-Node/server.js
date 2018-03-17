@@ -6,7 +6,7 @@ let middleware = require('./app/middleware/middlewatesetup');
 middleware.setup(app);
 
 // apply routes to the server
-app.use('/api', require('./app/routes/index').routes);
+require('./app/routes/_routes').setup(app);
 
 // error message for unauthorized access
 app.use(function (err, req, res, next) {

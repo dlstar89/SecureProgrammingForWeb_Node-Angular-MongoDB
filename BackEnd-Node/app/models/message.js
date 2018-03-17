@@ -27,12 +27,24 @@ let Schema = mongoose.Schema;
  *     in: formData
  *     required: true
  *     example: '5a9e82f5ffc41fd603bc09fa'
+ *   messageId:
+ *     type: string
+ *     name: messageId
+ *     in: formData
+ *     required: true
+ *     example: '5a9e82f5ffc41fd603bc09fa'
  *   messageText:
  *     type: string
  *     name: messageText
  *     in: formData
  *     required: true
  *     example: 'Some message for the post'
+ *   markedAsAnswer:
+ *     type: boolean
+ *     name: markedAsAnswer
+ *     in: formData
+ *     required: true
+ *     example: true
  */
 
 let messageSchema = new Schema({
@@ -59,8 +71,10 @@ let messageSchema = new Schema({
     type: Date,
     default: Date.now
   }
-}, {
-  versionKey: false
-});
+}, { versionKey: false });
+
+messageSchema.methods.setAnsweredStatus = function (isAnswered) {
+  this.markedAsAnswer = isAnswered;
+};
 
 module.exports = mongoose.model('message', messageSchema);

@@ -15,7 +15,7 @@ function getRecentMessages (req, res) {
       postId: postId
     })
     .populate('userId', ['name'])
-  // .limit(10)
+    // .limit(10)
     .exec(function (err, messages) {
       if (err) {
         res.send(err);
@@ -60,7 +60,40 @@ function createMessage (req, res) {
   });
 }
 
+/**
+   * Mark message answered status
+   *
+   * @param {any} req
+   * @param {any} res
+   */
+function markMessageAnsweredStatus (req, res) {
+  // const userid = req.payload._id;
+
+  let messageId = req.body.messageId;
+  let isAnswered = req.body.markedAsAnswer;
+
+  Message
+    .findById(messageId)
+    .exec()
+    .then(message => {
+      message.setAnsweredStatus(isAnswered);
+      message
+        .save(function (err) {
+          if (err) {
+            res.json(err);
+            return;
+          }
+
+          res.status(200).json(message);
+        });
+    })
+    .catch(err => {
+      res.status(321).json({ message: 'Message not found', err: err });
+    });
+}
+
 module.exports = {
   getRecentMessages,
-  createMessage
+  createMessage,
+  markMessageAnsweredStatus
 };

@@ -83,9 +83,7 @@ var postSchema = new Schema({
     required: false,
     default: 0
   }
-}, {
-  versionKey: false
-});
+}, { versionKey: false });
 
 // Export User schema
 module.exports = mongoose.model('post', postSchema);

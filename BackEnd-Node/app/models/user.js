@@ -93,9 +93,7 @@ let userSchema = new Schema({
     type: Date,
     default: Date.now
   }
-}, {
-  versionKey: false
-});
+}, { versionKey: false });
 
 /**
  * Sets user password by hashing and salting it

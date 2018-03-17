@@ -42,9 +42,6 @@ function setup (app) {
 
   // apply CORS
   app.use(cors());
-
-  // register SWAGGER route
-  app.use(require('../routes/swagger').routes);
 }
 
 module.exports = {

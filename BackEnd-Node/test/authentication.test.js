@@ -15,18 +15,18 @@ describe('Authentication', function () {
     });
   });
 
-  describe('/GET users', () => {
-    it('it should GET all USERS', (done) => {
-      chai.request(server)
-        .get('/api/users')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('array');
+  // describe('/GET users', () => {
+  //   it('it should GET all USERS', (done) => {
+  //     chai.request(server)
+  //       .get('/api/users')
+  //       .end((err, res) => {
+  //         res.should.have.status(200);
+  //         res.body.should.be.a('array');
 
-          done();
-        });
-    });
-  });
+  //         done();
+  //       });
+  //   });
+  // });
 
   describe('/POST user', () => {
     it('it should CREATE new USER and return a TOKEN', (done) => {

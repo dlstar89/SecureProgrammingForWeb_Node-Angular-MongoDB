@@ -16,6 +16,12 @@ describe('Message', function () {
       done();
     });
   });
+  
+  beforeEach((done) => {
+    Post.remove({}, (err) => {
+      done();
+    });
+  });
 
   beforeEach((done) => {
     Message.remove({}, (err) => {
@@ -138,4 +144,59 @@ describe('Message', function () {
         });
     });
   });
+  describe('/PUT', () => {
+    it('it should UPDATE message answered status TO TRUE using JWT as Authentication', (done) => {
+      const userDetails = {
+        name: 'Bob Bobskij',
+        email: 'a@b.abc',
+        password: 'pass1'
+      };
+
+      User.create([userDetails], (err, users) => {
+        let user = users[0];
+        let token = user.generateJwt();
+        let postAmount = 5;
+
+        const postsDetails = [{
+          userId: user._id,
+          title: 'Some Post Title ',
+          shortDescription: 'short description',
+          fullDescription: 'full description'
+        }];
+
+        Post.create(postsDetails, (err, posts) => {
+          let post = posts[0];
+
+          let newmessage = {
+            postId: post._id,
+            userId: user._id,
+            messageText: 'Some test text 1'
+          };
+
+          Message.create([newmessage], (err, messages) => {
+            message = messages[0];
+
+            chai.request(server)
+              .put('/api/markAnsweredStatus')
+              .set('Authorization', 'Bearer ' + token)
+              .send({ messageId: message._id, markedAsAnswer: true })
+              .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('_id');
+                res.body.should.have.property('userId');
+                res.body.should.have.property('postId');
+                res.body.should.have.property('messageText');
+                res.body.should.have.property('markedAsAnswer');
+                res.body.should.have.property('postedOn');
+                res.body.markedAsAnswer.should.be.eql(true);
+
+                done();
+              });
+          });
+        });
+      });
+    });
+  });
+
 });
