@@ -12,7 +12,7 @@ import { AuthenticationService } from './authentication.service';
 
 export interface PostDetails {
   _id: string;
-  author: {
+  userId: {
     _id: string;
     name: string;
   };
@@ -20,6 +20,7 @@ export interface PostDetails {
   shortDescription: string;
   fullDescription: string;
   totalMessages: number;
+  totalAnswers: number;
   postedOn: string;
 }
 

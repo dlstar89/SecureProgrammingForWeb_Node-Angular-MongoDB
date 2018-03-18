@@ -9,7 +9,7 @@
   <div id="left">
     <mat-card class="center" style="width: 80%;">
       <mat-card-title>{{task?.title}}</mat-card-title>
-      <mat-card-subtitle>{{task?.author?.name}}</mat-card-subtitle>
+      <mat-card-subtitle>{{task?.userId?.name}}</mat-card-subtitle>
     </mat-card>
     <mat-card class="center" style="width: 80%;">
       <mat-card-title>DESCRIPTION</mat-card-title>
@@ -18,7 +18,13 @@
   </div>
 
   <div id="right">
-    <h1 class="CenterFancyText">REPLIES</h1>
-    <app-messagecard *ngFor="let message of messageSevice.messageArray" [message]='message'></app-messagecard>
+    <h1 class="CenterFancyText">MESSAGE / COMMENTS</h1>
+    <app-messagecard
+      *ngFor="let message of messageSevice.messageArray"
+        [message]='message'
+        [authorized]='authorizedToMarkAnswers'
+        (answered)='updateMessageStatus(message)'
+    >
+    </app-messagecard>
   </div>
 </div>

@@ -82,7 +82,13 @@ var postSchema = new Schema({
     type: Number,
     required: false,
     default: 0
+  },
+  totalAnswers: {
+    type: Number,
+    required: false,
+    default: 0
   }
+
 }, { versionKey: false });
 
 // Export User schema

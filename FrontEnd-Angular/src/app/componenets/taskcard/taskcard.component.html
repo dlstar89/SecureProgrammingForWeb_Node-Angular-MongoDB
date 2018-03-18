@@ -1,10 +1,11 @@
-<mat-card>
+<mat-card [ngStyle]="{'backgroundColor': getStatusColour}">
   <mat-card-title>{{title}}</mat-card-title>
   <mat-card-subtitle>{{author}}</mat-card-subtitle>
   <mat-card-content>
     <p>{{shortDescription}}</p>
     <p>{{fullDescription}}</p>
     <p>Replies: {{totalMessages}}</p>
+    <p>Answers: {{totalAnswers}}</p>
   </mat-card-content>
   <mat-card-footer>
     {{datePosted}}

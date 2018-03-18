@@ -13,10 +13,15 @@ export class TaskcardComponent implements OnInit {
   @Input() shortDescription: string;
   @Input() fullDescription: string;
   @Input() totalMessages: number;
+  @Input() totalAnswers: number;
   @Input() datePosted: Date;
 
   constructor() { }
 
   ngOnInit() { }
+
+  get getStatusColour() {
+    return this.totalAnswers > 0 ? '#79ff79' : 'white';
+  }
 
 }

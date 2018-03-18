@@ -57,7 +57,7 @@ function setup (auth) {
 
   /**
    * @swagger
-   * /markMessageAnsweredStatus:
+   * /markAnsweredStatus:
    *   put:
    *     security:
    *       - Bearer: ['#/securityDefinitions/Bearer']

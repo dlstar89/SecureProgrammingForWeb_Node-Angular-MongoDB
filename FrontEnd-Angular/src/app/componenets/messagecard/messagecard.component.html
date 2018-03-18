@@ -1,9 +1,22 @@
+<!-- <mat-card (click)='updateStatus()' [ngStyle]="{'backgroundColor': getStatusColour}"> -->
 <mat-card>
+
   <mat-card-title>{{message?.userId?.name}}</mat-card-title>
+
   <mat-card-content>
     {{message?.messageText}}
   </mat-card-content>
+
   <mat-card-footer>
     {{message?.postedOn}}
   </mat-card-footer>
+
+  <mat-checkbox
+    (click)='updateStatus()'
+    [(ngModel)]='message.markedAsAnswer'
+    [disabled]="!authorized"
+  >
+    Answered
+  </mat-checkbox>
+
 </mat-card>

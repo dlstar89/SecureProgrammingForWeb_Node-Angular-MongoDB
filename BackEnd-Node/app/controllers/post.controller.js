@@ -11,6 +11,7 @@ var Message = mongoose.model('message');
 function getRecentPosts (req, res) {
   Post
     .find({})
+    .populate('userId', ['name'])
     .sort({
       postedOn: -1
     })
@@ -31,16 +32,7 @@ function getRecentPosts (req, res) {
       ]);
     })
     .then(function (results) {
-      var posts = results[0];
-      var messages = results[1];
-      posts.forEach(function (post) {
-        post.messages = messages.filter(message => {
-          // return message.postId.equals(post._id);
-          if (message.postId.equals(post._id)) {
-            post.totalMessages++;
-          }
-        });
-      });
+      const posts = countPostsMessages(results[0], results[1]);
 
       res.json(posts);
     })
@@ -63,7 +55,7 @@ function getPost (req, res) {
     .findOne({
       _id: postId
     })
-    .populate('author', ['name'])
+    .populate('userId', ['name'])
     .exec()
     .then(post => {
       res.json(post);
@@ -104,16 +96,7 @@ function getUserPosts (req, res) {
       ]);
     })
     .then(function (results) {
-      var posts = results[0];
-      var messages = results[1];
-      posts.forEach(function (post) {
-        post.messages = messages.filter(function (message) {
-          // return message.postId.equals(post._id);
-          if (message.postId.equals(post._id)) {
-            post.totalMessages++;
-          }
-        });
-      });
+      const posts = countPostsMessages(results[0], results[1]);
 
       res.json(posts);
     })
@@ -121,6 +104,30 @@ function getUserPosts (req, res) {
       console.log(err);
       res.json(err);
     });
+}
+
+/**
+ * Counts number of messages for each post
+ *
+ * @param {array} posts
+ * @param {array} messages
+ *
+ * @returns {array} posts
+ */
+function countPostsMessages (posts, messages) {
+  posts.forEach(function (post) {
+    post.messages = messages.filter(function (message) {
+      // return message.postId.equals(post._id);
+      if (message.postId.equals(post._id)) {
+        post.totalMessages++;
+        if (message.markedAsAnswer === true) {
+          post.totalAnswers++;
+        }
+      }
+    });
+  });
+
+  return posts;
 }
 
 /**

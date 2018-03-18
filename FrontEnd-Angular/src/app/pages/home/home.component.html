@@ -6,18 +6,17 @@
   LATEST POSTS
 </div>
 
-<div id="tasks">
-  <div [@cardFadeIn]="postService.postsArray.length">
-    <app-taskcard class="TaskLink"
-        *ngFor="let post of postService.postsArray"
-          [routerLink]='["/post", post?._id]'
-          [postId]='post?._id'
-          [title]='post?.title'
-          [author]='post?.author?.name'
-          [shortDescription]='post?.shortDescription'
-          [totalMessages]='post?.totalMessages'
-          [datePosted]='post?.postedOn'
-          >
-    </app-taskcard>
-  </div>
+<div id="tasks" [@cardFadeIn]="postService.postsArray.length" >
+  <app-taskcard class="TaskLink"
+      *ngFor="let post of postService.postsArray"
+        [routerLink]='["/post", post?._id]'
+        [postId]='post?._id'
+        [title]='post?.title'
+        [author]='post?.userId?.name'
+        [shortDescription]='post?.shortDescription'
+        [totalMessages]='post?.totalMessages'
+        [totalAnswers]='post?.totalAnswers'
+        [datePosted]='post?.postedOn'
+        >
+  </app-taskcard>
 </div>

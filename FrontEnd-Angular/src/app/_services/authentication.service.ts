@@ -1,3 +1,4 @@
+import { UserDetails } from './authentication.service';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -53,6 +54,15 @@ export class AuthenticationService {
     const token = this.getToken();
     if (token) {
       return JSON.parse(window.atob(token.split('.')[1]));
+    } else {
+      return null;
+    }
+  }
+
+  public get getUserID(): string {
+    const user = this.getUserDetails();
+    if (user) {
+      return user._id;
     } else {
       return null;
     }

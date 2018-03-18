@@ -1,9 +1,9 @@
-import { PostService } from './../../_services/post.service';
+import { PostService, PostDetails } from './../../_services/post.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PostDetails } from '../../_services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators/map';
 import { MessageService, MessageDetails } from '../../_services/message.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-post',
@@ -13,11 +13,13 @@ import { MessageService, MessageDetails } from '../../_services/message.service'
 export class PostComponent implements OnInit, OnDestroy {
 
   task: PostDetails;
+  authorizedToMarkAnswers = false;
 
   constructor(
     private postService: PostService,
     public messageSevice: MessageService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private auth: AuthenticationService) { }
 
   ngOnInit() {
     let postId = '';
@@ -28,9 +30,18 @@ export class PostComponent implements OnInit, OnDestroy {
 
     this.postService.getPost(postId, data => {
       this.task = data as PostDetails;
+      if (this.auth.getUserID === this.task.userId._id) {
+        this.authorizedToMarkAnswers = true;
+      }
+      this.messageSevice.getMessages(postId);
     });
+  }
 
-    this.messageSevice.getMessages(postId);
+  updateMessageStatus(message: MessageDetails) {
+    this.messageSevice.updateMessageStatus(message._id, !message.markedAsAnswer, this.auth.myToken, res => {
+      const resMessage = res as MessageDetails;
+      message.markedAsAnswer = resMessage.markedAsAnswer;
+    });
   }
 
   ngOnDestroy() { }
