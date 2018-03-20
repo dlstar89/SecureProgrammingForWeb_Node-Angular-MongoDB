@@ -16,7 +16,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   details: UserDetails;
   private subscriptionUser$: ISubscription;
 
-  constructor(private auth: AuthenticationService, public posts: PostService) { }
+  constructor(
+    private auth: AuthenticationService,
+    public posts: PostService
+  ) { }
 
   ngOnInit() {
     this.subscriptionUser$ = this.auth.profile().subscribe(user => {

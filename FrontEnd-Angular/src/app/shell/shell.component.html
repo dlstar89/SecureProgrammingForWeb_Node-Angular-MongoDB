@@ -1,15 +1,30 @@
 <nav>
-  <mat-toolbar color="primary" id="toolbar">
-    <button mat-button routerLink='/'>{{title}}</button>
+  <mat-toolbar id="toolbar">
+    <button [ngClass]="['white']" mat-button routerLink='/'>
+      <i class="material-icons">work</i>
+    </button>
     <span style="flex: 1 1 auto;"></span>
-    <button *ngIf='!auth.isLoggedIn()' mat-button (click)="openRegister()">Register</button>
-    <button *ngIf='!auth.isLoggedIn()' mat-button (click)="openLogin()">LogIn</button>
-    <button *ngIf='auth.isLoggedIn()' routerLink='/profile' mat-button>{{auth.getUserDetails().name}}</button>
-    <button *ngIf='auth.isLoggedIn()' mat-button color="warn" (click)="logout()">LogOut</button>
+    <button [ngClass]="['orange']" *ngIf='!auth.isLoggedIn()' mat-button (click)="openRegister()">
+      <i class="material-icons">add_to_photos</i>
+    </button>
+    <button [ngClass]="['blue']" *ngIf='!auth.isLoggedIn()' mat-button (click)="openLogin()">
+      <i class="material-icons">input</i>
+    </button>
+    <!-- <button [ngClass]="['blue']" *ngIf='auth.isLoggedIn()' routerLink='/profile' mat-button>{{auth.getUserDetails().name}}</button> -->
+    <button [ngClass]="['blue']" *ngIf='auth.isLoggedIn()' routerLink='/profile' mat-button>
+      <i class="material-icons">person_outline</i>
+    </button>
+    <button [ngClass]="['red']" *ngIf='auth.isLoggedIn()' mat-button (click)="logout()">
+      <i class="material-icons">eject</i>
+    </button>
   </mat-toolbar>
 </nav>
+
 <div id="root" [@routerAnimation]='prepareRouteTransition(outlet)'>
   <router-outlet #outlet="outlet"></router-outlet>
 </div>
 
-<app-actionbutton (notifyParent)="getNotification($event)"></app-actionbutton>
+<app-actionbutton
+  (notifyParent)="getNotification($event)"
+  >
+</app-actionbutton>

@@ -59,6 +59,6 @@ export class ActionbuttonComponent implements OnInit {
         break;
     }
 
-    this.notifyParent.emit(this.router.url.split('/')[1]);
+    // this.notifyParent.emit(this.router.url.split('/')[1]);
   }
 }

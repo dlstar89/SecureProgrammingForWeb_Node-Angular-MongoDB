@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 html {
   height: 100%;
   width: 100%;
@@ -35,7 +36,21 @@ app-shell {
   margin-top: 10px;
 }
 
+.HeaderText {
+  text-align: center;
+  color: #ffa900;
+  font-size: 30px;
+  border-bottom: inset 1px gray;
+  background-color: #2f2f2f;
+  /* width: 50%; */
+}
+
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
+}
+
+
+@media only screen and (max-width: 500px) {
+
 }

@@ -20,7 +20,10 @@ export class ShellComponent implements OnInit {
 
   modalConfig = { width: '320px', position: { top: '0px' } };
 
-  constructor(public auth: AuthenticationService, public dialog: MatDialog) { }
+  constructor(
+    public auth: AuthenticationService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() { }
 
@@ -37,7 +40,7 @@ export class ShellComponent implements OnInit {
   }
 
   getNotification(evt) {
-    console.log(evt);
+    // console.log(evt);
   }
 
   prepareRouteTransition(outlet) {

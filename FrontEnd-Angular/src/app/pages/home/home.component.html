@@ -1,22 +1,24 @@
-<div *ngIf='postService.postsArray.length <= 0' id="noWorkText">
-  NO WORK POSTED
-</div>
+<div id="container">
+  <div *ngIf='postService.postsArray.length <= 0' class='HeaderText'>
+    NO WORK POSTED
+  </div>
 
-<div *ngIf='postService.postsArray.length > 0' id="WorkText">
-  LATEST POSTS
-</div>
+  <div *ngIf='postService.postsArray.length > 0' class='HeaderText'>
+    LATEST POSTS
+  </div>
 
-<div id="tasks" [@cardFadeIn]="postService.postsArray.length" >
-  <app-taskcard class="TaskLink"
-      *ngFor="let post of postService.postsArray"
-        [routerLink]='["/post", post?._id]'
-        [postId]='post?._id'
-        [title]='post?.title'
-        [author]='post?.userId?.name'
-        [shortDescription]='post?.shortDescription'
-        [totalMessages]='post?.totalMessages'
-        [totalAnswers]='post?.totalAnswers'
-        [datePosted]='post?.postedOn'
-        >
-  </app-taskcard>
+  <div id="tasks" [@cardFadeIn]="postService.postsArray.length" >
+    <app-taskcard class="TaskLink"
+        *ngFor="let post of postService.postsArray"
+          [routerLink]='["/post", post?._id]'
+          [postId]='post?._id'
+          [title]='post?.title'
+          [author]='post?.userId?.name'
+          [shortDescription]='post?.shortDescription'
+          [totalMessages]='post?.totalMessages'
+          [totalAnswers]='post?.totalAnswers'
+          [datePosted]='post?.postedOn'
+          >
+    </app-taskcard>
+  </div>
 </div>
