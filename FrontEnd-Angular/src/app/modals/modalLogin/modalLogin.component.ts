@@ -49,6 +49,7 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
     },
       err => {
         console.error(err);
+        this.auth.handleError('INVALID CREDENTIALS', 'CLOSE');
       });
   }
 

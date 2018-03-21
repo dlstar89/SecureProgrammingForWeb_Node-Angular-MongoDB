@@ -34,7 +34,7 @@ describe('Authentication', function () {
       const newUser = {
         name: 'Bob',
         email: 'a@b.ab',
-        password: 'qweqwe'
+        password: 'Qweqwe1234!'
       };
 
       chai.request(server)
@@ -53,7 +53,7 @@ describe('Authentication', function () {
       const newUser = {
         name: 'Bob',
         email: 'a@b.ab',
-        password: 'qweqwe'
+        password: 'Qweqwe1234!'
       };
 
       chai.request(server)
@@ -71,7 +71,7 @@ describe('Authentication', function () {
     it('it should LOGIN user', (done) => {
       const user = {
         email: 'a@b.ab',
-        password: 'qweqwe'
+        password: 'Qweqwe1234!'
       };
 
       chai.request(server)
@@ -89,7 +89,7 @@ describe('Authentication', function () {
     it('it should NOT LOGIN user with wrong PASSWORD', (done) => {
       const user = {
         email: 'a@b.ab',
-        password: 'pass2'
+        password: 'Qweqwe1234!!'
       };
 
       chai.request(server)

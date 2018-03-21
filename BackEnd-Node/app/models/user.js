@@ -29,7 +29,7 @@ let Schema = mongoose.Schema;
  *       password:
  *         type: string
  *         format: password
- *         example: 'pass1'
+ *         example: 'Pass1234!'
  *
  *   User:
  *     type: object
@@ -61,7 +61,7 @@ let Schema = mongoose.Schema;
  *     in: formData
  *     required: true
  *     format: password
- *     example: 'pass1'
+ *     example: 'Pass1234!'
  */
 
 /**

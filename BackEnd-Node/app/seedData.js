@@ -11,7 +11,7 @@ function seedDBData (req, res) {
   var p1 = new User({
     email: 'a@b.ab',
     name: 'Bob Bobovich',
-    password: 'pass1'
+    password: 'Pass1234!'
   });
   p1.save(function (err) {
     if (err) throw err;

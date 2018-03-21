@@ -2,6 +2,10 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 var User = mongoose.model('user');
 
+// const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+
 /**
  * Returns all users
  *
@@ -25,11 +29,26 @@ function getUsers (req, res) {
  * @param {obj} res
  */
 function registerUser (req, res) {
-  var user = new User();
+  let password = req.body.password;
+  if (strongPasswordRegex.test(password) === false) {
+    res.status(321)
+      .json({ error: 'Invalid data provided' });
+    return;
+  }
 
-  user.name = req.body.name;
-  user.email = req.body.email;
-  user.password = req.body.password;
+  let email = req.body.email;
+  if (emailRegex.test(email) === false) {
+    res.status(321)
+      .json({ error: 'Invalid data provided' });
+    return;
+  }
+
+  var user = new User({
+    name: req.body.name,
+    email: email,
+    password: password
+  });
+
   // user.setPassword(req.body.password);
 
   user.save(function (err) {

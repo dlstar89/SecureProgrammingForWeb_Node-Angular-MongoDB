@@ -3,14 +3,19 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FormValidationsService {
 
+  // tslint:disable-next-line:max-line-length
+  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  // min lenght 8 chars, at least 1 uppercase, at least 1 lowercase, at least 1 special char
+  strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+
   constructor() { }
 
   public isEmailValid() {
     return (control) => {
       if (control.touched || control.dirty) {
         // tslint:disable-next-line:max-line-length
-        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return regex.test(control.value) ? null : { invalidEmail: true };
+        return this.emailRegex.test(control.value) ? null : { invalidEmail: true };
       }
     };
   }
@@ -18,7 +23,7 @@ export class FormValidationsService {
   public isPasswordValid() {
     return (control) => {
       if (control.touched || control.dirty) {
-        return control.value.length >= 4 ? null : { valid: true };
+        return this.strongPasswordRegex.test(control.value) ? null : { valid: true };
       }
     };
   }

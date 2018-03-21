@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+
 
 /**INTERFACES */
 export interface UserDetails {
@@ -31,7 +33,11 @@ export class AuthenticationService {
   private BASE_URL = environment.apiUrl;
   private TOKEN_KEY = 'token';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { }
 
   private saveToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
@@ -115,5 +121,11 @@ export class AuthenticationService {
 
   public users(): Observable<any> {
     return this.request('get', 'users');
+  }
+
+  public handleError(message: string, action: string, duration?: number) {
+    this.snackBar.open(message, action, {
+      duration: duration || 2000,
+    });
   }
 }
