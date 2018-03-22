@@ -1,6 +1,7 @@
 /** Required packages */
 let express = require('express');
 let app = express();
+let config = require('config');
 let middleware = require('./app/middleware/middlewatesetup');
 
 middleware.setup(app);
@@ -20,7 +21,7 @@ app.use(function (err, req, res, next) {
 });
 
 /** Start Server */
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || config.port;
 app.listen(port);
 console.log('Server running on http://localhost:' + port);
 

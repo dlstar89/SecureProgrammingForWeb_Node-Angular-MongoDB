@@ -24,7 +24,7 @@ function setup (auth) {
       version: '1.0.0', // Version (required)
       description: 'API' // Description (optional)
     },
-    host: 'localhost:8080', // Host (optional)
+    host: 'localhost:' + config.port, // Host (optional)
     basePath: '/api' // Base path (optional)
   };
 

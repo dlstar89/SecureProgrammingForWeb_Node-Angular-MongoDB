@@ -1,0 +1,35 @@
+config:
+  phases:
+    - duration: 5
+      arrivalRate: 10
+      rampTo: 50
+      name: "Warm up the application"
+    - duration: 10
+      arrivalRate: 200
+      name: "Sustained max load of 200 users per second"
+  environments:
+    local:
+      target: 'http://localhost:8080/api'
+    test:
+      target: 'http://localhost:9999/api'
+  variables:
+      email:
+        - "a@b.ab"
+      password:
+        - "Pass1234!"
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - flow:
+    - get:
+        url: "/"
+    - get:
+        url: "/users"
+    - get:
+        url: "/getrecentposts"
+    - post:
+        url: "/login"
+        json:
+          email: "{{ email }}"
+          password: "{{ password }}"
