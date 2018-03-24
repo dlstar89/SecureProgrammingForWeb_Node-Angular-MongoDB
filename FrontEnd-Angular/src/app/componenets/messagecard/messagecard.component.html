@@ -12,6 +12,7 @@
   </mat-card-footer>
 
   <mat-checkbox
+  *ngIf='authorized'
     (click)='updateStatus()'
     [(ngModel)]='message.markedAsAnswer'
     [disabled]="!authorized"

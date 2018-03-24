@@ -16,7 +16,6 @@ import { RoutingModule } from './app.routing';
 import { MODALS } from './modals/modals.component';
 
 /**SERVICES */
-import { AccountService } from './_services/account.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { PostService } from './_services/post.service';
 import { RouteAuthenticationGuardService } from './_services/routeAuthentication-guard.service';
@@ -68,7 +67,6 @@ import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.c
     FormValidationsService,
     AuthenticationService,
     RouteAuthenticationGuardService,
-    AccountService,
     PostService,
     MessageService
   ],

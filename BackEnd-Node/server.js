@@ -9,6 +9,10 @@ middleware.setup(app);
 // apply routes to the server
 require('./app/routes/_routes').setup(app);
 
+app.get('/', (req, res, err) => {
+  res.status(200).json({ message: 'ok' });
+});
+
 // error message for unauthorized access
 app.use(function (err, req, res, next) {
   // if (err.name === 'UnauthorizedError') {

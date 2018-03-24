@@ -81,6 +81,11 @@ let userSchema = new Schema({
     type: String,
     required: true
   },
+  authorisation: [{
+    type: Schema.Types.ObjectId,
+    ref: 'authorisation',
+    required: false
+  }],
 
   hash: String,
   salt: String,
@@ -129,6 +134,7 @@ userSchema.methods.generateJwt = function () {
     _id: this._id,
     email: this.email,
     name: this.name,
+    auth: this.authorisation,
     exp: parseInt(expiry.getTime() / 1000)
   }, config.jwtSecret); // DO NOT KEEP YOUR SECRET IN THE CODE!
 };

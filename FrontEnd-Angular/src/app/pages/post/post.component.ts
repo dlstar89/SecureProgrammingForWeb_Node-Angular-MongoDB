@@ -30,9 +30,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
     this.postService.getPost(postId, data => {
       this.task = data as PostDetails;
-      if (this.auth.getUserID === this.task.userId._id) {
-        this.authorizedToMarkAnswers = true;
-      }
+      this.authorizedToMarkAnswers = this.auth.isAuthorised(this.task.userId._id);
       this.messageSevice.getMessages(postId);
     });
   }

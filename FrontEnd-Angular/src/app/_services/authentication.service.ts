@@ -1,4 +1,4 @@
-import { UserDetails } from './authentication.service';
+import { Authorisation } from './authentication.service';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -13,11 +13,12 @@ export interface UserDetails {
   _id: string;
   email: string;
   name: string;
+  auth: [Authorisation];
   exp: number;
   iat: number;
 }
 
-interface TokenResponse {
+export interface TokenResponse {
   token: string;
 }
 
@@ -25,6 +26,12 @@ export interface TokenPayload {
   email: string;
   password: string;
   name?: string;
+}
+
+export interface Authorisation {
+  _id: string;
+  authName: string;
+  authLevel: number;
 }
 
 @Injectable()
@@ -72,6 +79,34 @@ export class AuthenticationService {
     } else {
       return null;
     }
+  }
+
+  /**
+   * Compares user ids to see if the action is authorised
+   *
+   * @param {string} _id
+   * @returns {boolean}
+   * @memberof AuthenticationService
+   */
+  public isAuthorised(_id: string): boolean {
+    if (_id === this.getUserID) {
+      return true;
+    }
+
+    if (this.isAdmin === true) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private get isAdmin(): boolean {
+    const user = this.getUserDetails();
+    if (user && user.auth) {
+      return user.auth.filter(a => a.authLevel === 777).length > 0;
+    }
+
+    return false;
   }
 
   public isLoggedIn(): boolean {

@@ -20,12 +20,6 @@ let Schema = mongoose.Schema;
  *         type: string
  *       fullDescription:
  *         type: string
- *       messages:
- *         type: array
- *         schema:
- *          type: array
- *          items:
- *            $ref: '#/definitions/NewMessage'
  */
 
 /**
@@ -73,11 +67,6 @@ var postSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  messages: [{
-    type: Schema.Types.ObjectId,
-    ref: 'message',
-    required: false
-  }],
   totalMessages: {
     type: Number,
     required: false,

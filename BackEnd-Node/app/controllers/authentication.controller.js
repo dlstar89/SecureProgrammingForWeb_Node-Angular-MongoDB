@@ -13,13 +13,15 @@ const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(
  * @param {any} res
  */
 function getUsers (req, res) {
-  let query = User.find({});
-  query.exec(function (err, users) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(users);
-  });
+  User
+    .find({})
+    .populate('authorisation')
+    .exec(function (err, users) {
+      if (err) {
+        res.send(err);
+      }
+      res.json(users);
+    });
 }
 
 /**
