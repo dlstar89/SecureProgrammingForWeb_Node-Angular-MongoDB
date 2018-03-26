@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       console.error(err);
     });
 
-    this.posts.getUserPosts();
+    this.posts.getUserPosts(this.auth.myToken);
   }
 
   ngOnDestroy() {

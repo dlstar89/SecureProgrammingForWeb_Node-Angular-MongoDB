@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormValidationsService } from '../../_utils/formValidations.service';
+import { ErrorhandlerService } from '../../_services/errorhandler.service';
 
 @Component({
   selector: 'app-modallogin',
@@ -24,6 +25,7 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
   private subscription$: ISubscription;
 
   constructor(
+    private erh: ErrorhandlerService,
     private dialogRef: MatDialogRef<ModalLoginComponent>,
     private auth: AuthenticationService,
     private router: Router,
@@ -49,7 +51,7 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
     },
       err => {
         console.error(err);
-        this.auth.handleError('INVALID CREDENTIALS', 'CLOSE');
+        this.erh.handleError('INVALID CREDENTIALS', 'CLOSE');
       });
   }
 

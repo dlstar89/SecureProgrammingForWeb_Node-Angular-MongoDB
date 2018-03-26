@@ -5,29 +5,30 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-/**APP SHELL */
+// APP SHELL
 import { ShellComponent } from './shell/shell.component';
 
-/**ROUTING */
+// ROUTING
 import { RoutingModule } from './app.routing';
 
 /**MODALS */
 import { MODALS } from './modals/modals.component';
 
-/**SERVICES */
+// SERVICES
+import { ErrorhandlerService } from './_services/errorhandler.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { PostService } from './_services/post.service';
 import { RouteAuthenticationGuardService } from './_services/routeAuthentication-guard.service';
 import { MessageService } from './_services/message.service';
 
-/**UTILS */
+// UTILS
 import { FormValidationsService } from './_utils/formValidations.service';
 
-/**PAGES */
+// PAGES
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
-/**COMPONENETS */
+// COMPONENETS
 import { TaskcardComponent } from './componenets/taskcard/taskcard.component';
 import { PostComponent } from './pages/post/post.component';
 import { MessagecardComponent } from './componenets/messagecard/messagecard.component';
@@ -62,6 +63,7 @@ import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.c
     MODALS
   ],
   providers: [
+    ErrorhandlerService,
     FormValidationsService,
     AuthenticationService,
     RouteAuthenticationGuardService,

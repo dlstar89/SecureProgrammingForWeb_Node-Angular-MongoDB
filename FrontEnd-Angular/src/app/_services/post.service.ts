@@ -38,7 +38,9 @@ export class PostService {
   postsArray: PostDetails[] = [];
   myPostsArray: PostDetails[] = [];
 
-  constructor(private http: HttpClient, private auth: AuthenticationService) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   public getLatestPosts() {
     this.http
@@ -70,8 +72,8 @@ export class PostService {
       });
   }
 
-  public getUserPosts() {
-    this.http.get(this.BASE_URL + '/getuserposts', { headers: { Authorization: `Bearer ${this.auth.myToken}` } }
+  public getUserPosts(userToken: string) {
+    this.http.get(this.BASE_URL + '/getuserposts', { headers: { Authorization: `Bearer ${userToken}` } }
     ).subscribe(data => {
       this.myPostsArray = data as PostDetails[];
     }, err => {

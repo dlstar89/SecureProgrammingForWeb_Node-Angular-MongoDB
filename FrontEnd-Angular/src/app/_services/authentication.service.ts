@@ -5,10 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 
 
-/**INTERFACES */
+// INTERFACES
 export interface UserDetails {
   _id: string;
   email: string;
@@ -42,8 +41,7 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private router: Router
   ) { }
 
   private saveToken(token: string): void {
@@ -72,6 +70,13 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * Returns user id
+   *
+   * @readonly
+   * @returns {string}
+   * @memberof AuthenticationService
+   */
   public get getUserID(): string {
     const user = this.getUserDetails();
     if (user) {
@@ -82,7 +87,7 @@ export class AuthenticationService {
   }
 
   /**
-   * Compares user ids to see if the action is authorised
+   * Checks if user action is authorised
    *
    * @param {string} _id
    * @returns {boolean}
@@ -100,6 +105,14 @@ export class AuthenticationService {
     return false;
   }
 
+  /**
+   * Checks is user is admin
+   *
+   * @readonly
+   * @private
+   * @returns {boolean}
+   * @memberof AuthenticationService
+   */
   private get isAdmin(): boolean {
     const user = this.getUserDetails();
     if (user && user.auth) {
@@ -109,6 +122,12 @@ export class AuthenticationService {
     return false;
   }
 
+  /**
+   * Checks is user is logged in
+   *
+   * @returns {boolean}
+   * @memberof AuthenticationService
+   */
   public isLoggedIn(): boolean {
     const user = this.getUserDetails();
     if (user) {
@@ -142,25 +161,35 @@ export class AuthenticationService {
     return request;
   }
 
+  /**
+   * Registers new user
+   *
+   * @param {TokenPayload} user
+   * @returns {Observable<any>}
+   * @memberof AuthenticationService
+   */
   public register(user: TokenPayload): Observable<any> {
     return this.request('post', 'register', user);
   }
 
+  /**
+   * Logins existing users
+   *
+   * @param {TokenPayload} user
+   * @returns {Observable<any>}
+   * @memberof AuthenticationService
+   */
   public login(user: TokenPayload): Observable<any> {
     return this.request('post', 'login', user);
   }
 
+  /**
+   * Gets user profile
+   *
+   * @returns {Observable<any>}
+   * @memberof AuthenticationService
+   */
   public profile(): Observable<any> {
     return this.request('get', 'profile');
-  }
-
-  public users(): Observable<any> {
-    return this.request('get', 'users');
-  }
-
-  public handleError(message: string, action: string, duration?: number) {
-    this.snackBar.open(message, action, {
-      duration: duration || 2000,
-    });
   }
 }

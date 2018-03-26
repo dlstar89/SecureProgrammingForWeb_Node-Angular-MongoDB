@@ -1,3 +1,4 @@
+import { ErrorhandlerService } from './../../_services/errorhandler.service';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -22,7 +23,7 @@ describe('ModalLoginComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, ReactiveFormsModule, FormsModule, MaterialModule, HttpClientModule, BrowserAnimationsModule],
       declarations: [ModalLoginComponent],
-      providers: [AuthenticationService, FormValidationsService,
+      providers: [AuthenticationService, FormValidationsService, ErrorhandlerService,
         { provide: MatDialogRef, useValue: {} }]
     })
       .compileComponents();
