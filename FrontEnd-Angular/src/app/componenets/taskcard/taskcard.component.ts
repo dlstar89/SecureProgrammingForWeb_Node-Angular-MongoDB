@@ -24,4 +24,8 @@ export class TaskcardComponent implements OnInit {
     return this.totalAnswers > 0 ? '#79ff79' : 'white';
   }
 
+  get answered() {
+    return this.totalAnswers > 0;
+  }
+
 }

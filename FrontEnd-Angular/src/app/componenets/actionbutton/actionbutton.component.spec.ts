@@ -4,12 +4,12 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatDialogModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ActionbuttonComponent } from './actionbutton.component';
 
 import { AuthenticationService } from './../../_services/authentication.service';
+import { MaterialModule } from '../../_modules/material.module';
 
 describe('ActionbuttonComponent', () => {
   let component: ActionbuttonComponent;
@@ -17,7 +17,7 @@ describe('ActionbuttonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, MatDialogModule, HttpClientModule],
+      imports: [RouterTestingModule, MaterialModule, HttpClientModule],
       providers: [AuthenticationService],
       declarations: [ActionbuttonComponent]
     })

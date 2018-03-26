@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 
 /**APP SHELL */
 import { ShellComponent } from './shell/shell.component';
@@ -56,8 +55,7 @@ import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.c
     FormsModule,
     ReactiveFormsModule,
     RoutingModule,
-    HttpClientModule,
-    HttpModule
+    HttpClientModule
   ],
   entryComponents: [
     ShellComponent,

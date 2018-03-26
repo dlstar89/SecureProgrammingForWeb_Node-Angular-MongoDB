@@ -5,7 +5,7 @@
     </button>
     <span style="flex: 1 1 auto;"></span>
     <button [ngClass]="['orange']" *ngIf='!auth.isLoggedIn()' mat-button (click)="openRegister()">
-      <i class="material-icons">add_to_photos</i>
+      <i class="material-icons">person_add</i>
     </button>
     <button [ngClass]="['blue']" *ngIf='!auth.isLoggedIn()' mat-button (click)="openLogin()">
       <i class="material-icons">input</i>

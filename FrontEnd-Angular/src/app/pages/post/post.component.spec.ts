@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { PostComponent } from './post.component';
 import { MessagecardComponent } from '../../componenets/messagecard/messagecard.component';
@@ -22,7 +22,8 @@ describe('PostComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, MaterialModule, HttpClientModule],
       providers: [PostService, AuthenticationService, MessageService],
-      declarations: [PostComponent, MessagecardComponent]
+      declarations: [PostComponent, MessagecardComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   }));

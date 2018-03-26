@@ -2,7 +2,7 @@ import { MaterialModule } from './../../_modules/material.module';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { MessagecardComponent } from './messagecard.component';
 
@@ -13,9 +13,10 @@ describe('MessagecardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule],
-      declarations: [ MessagecardComponent ]
+      declarations: [MessagecardComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

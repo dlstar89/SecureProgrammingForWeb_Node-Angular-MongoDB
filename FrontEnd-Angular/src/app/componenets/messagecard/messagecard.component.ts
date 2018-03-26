@@ -17,9 +17,7 @@ export class MessagecardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    // this.authorized = false;
-  }
+  ngOnInit() { }
 
   public updateStatus() {
     if (this.authorized === false) {

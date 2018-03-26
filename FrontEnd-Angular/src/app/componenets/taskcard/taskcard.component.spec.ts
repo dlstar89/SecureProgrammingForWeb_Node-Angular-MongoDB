@@ -14,9 +14,9 @@ describe('TaskcardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule],
-      declarations: [ TaskcardComponent ]
+      declarations: [TaskcardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

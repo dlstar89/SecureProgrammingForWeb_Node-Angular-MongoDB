@@ -14,7 +14,7 @@ config:
       target: 'http://localhost:9999/api'
   variables:
       email:
-        - "a@b.ab"
+        - "b@b.bb"
       password:
         - "Pass1234!"
   defaults:

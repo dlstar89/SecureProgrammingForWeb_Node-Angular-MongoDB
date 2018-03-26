@@ -1,5 +1,5 @@
-<!-- <mat-card (click)='updateStatus()' [ngStyle]="{'backgroundColor': getStatusColour}"> -->
-<mat-card>
+<!-- <mat-card> -->
+<mat-card [ngClass]="{'highlight':message?.markedAsAnswer}">
 
   <mat-card-title>{{message?.userId?.name}}</mat-card-title>
 

@@ -4,18 +4,15 @@ let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 let cors = require('cors');
-// let sanitizer = require('./app/middleware/sanitizer');
+var helmet = require('helmet');
 let passport = require('passport');
 
-// initializes mongoose models
-require('../models/_models');
-
-// initiazlie passport configuration
-require('../passportconfig/passport');
+require('../models/_models'); // Initializes mongoose models
+require('../passportconfig/passport'); // Initiazlie passport configuration
 
 function setup (app) {
-  // initialize passport
-  app.use(passport.initialize());
+  app.use(passport.initialize()); // Initialize passport
+  app.use(helmet()); // Helmet can help protect your app from some well-known web vulnerabilities by setting HTTP headers appropriately.
 
   // Use in memory mongo database for tests to avoid creating new mongodb instance
   if (config.util.getEnv('NODE_ENV') === 'test') {
@@ -35,10 +32,9 @@ function setup (app) {
 
   // use body parser so we can get data from api body payload
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-  app.use(cookieParser());
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  // app.use(cookieParser());
 
   // apply CORS
   app.use(cors());

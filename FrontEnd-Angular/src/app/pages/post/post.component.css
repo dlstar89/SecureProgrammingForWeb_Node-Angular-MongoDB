@@ -17,7 +17,7 @@ mat-card {
 }
 
 #right {
-  background-color: rgb(68, 105, 132);
+  background-color: #404040;
   width: 60%;
   height: 100%;
   display: flex;
