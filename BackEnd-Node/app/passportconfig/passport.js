@@ -1,7 +1,7 @@
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
-let mongoose = require('mongoose');
-let User = mongoose.model('user');
+let db = require('../db/db');
+let User = db.dbData.model('user');
 
 /**
  * Implements LocalStrategy way of authenticating user

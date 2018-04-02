@@ -1,6 +1,7 @@
 const passport = require('passport');
-const mongoose = require('mongoose');
-var User = mongoose.model('user');
+let db = require('../db/db');
+let User = db.dbData.model('user');
+let logger = require('../logger/loger');
 
 // const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -20,7 +21,7 @@ function getUsers (req, res) {
       if (err) {
         res.send(err);
       }
-      res.json(users);
+      res.status(200).json(users);
     });
 }
 
@@ -33,15 +34,13 @@ function getUsers (req, res) {
 function registerUser (req, res) {
   let password = req.body.password;
   if (strongPasswordRegex.test(password) === false) {
-    res.status(321)
-      .json({ error: 'Invalid data provided' });
+    res.status(321).json({ error: 'Invalid data provided' });
     return;
   }
 
   let email = req.body.email;
   if (emailRegex.test(email) === false) {
-    res.status(321)
-      .json({ error: 'Invalid data provided' });
+    res.status(321).json({ error: 'Invalid data provided' });
     return;
   }
 
@@ -55,16 +54,15 @@ function registerUser (req, res) {
 
   user.save(function (err) {
     if (err) {
-      res.status(999)
-        .json(err);
+      res.status(999).json(err);
       return;
     }
 
+    // Log user authenticated
+    logger.createLog({ action: 'Register', code: 200, userId: user._id, ip: req.ip });
+
     let token = user.generateJwt();
-    res.status(200)
-      .json({
-        'token': token
-      });
+    res.status(200).json({ 'token': token });
   });
 }
 
@@ -85,10 +83,9 @@ function loginUser (req, res) {
     // If a user is found
     if (user) {
       let token = user.generateJwt();
-      res.status(200)
-        .json({
-          'token': token
-        });
+      // Log user authenticated
+      logger.createLog({ action: 'Login', code: 200, userId: user._id, ip: req.ip });
+      res.status(200).json({ 'token': token });
     } else {
       // If user is not found
       res.status(401).json(info);

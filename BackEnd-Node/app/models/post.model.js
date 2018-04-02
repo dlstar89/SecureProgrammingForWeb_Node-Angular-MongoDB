@@ -1,5 +1,5 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+let Schema = require('mongoose').Schema;
+let db = require('../db/db');
 
 /**
  * @swagger
@@ -81,4 +81,4 @@ var postSchema = new Schema({
 }, { versionKey: false });
 
 // Export User schema
-module.exports = mongoose.model('post', postSchema);
+module.exports = db.dbData.model('post', postSchema);

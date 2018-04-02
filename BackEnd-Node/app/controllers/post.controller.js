@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
-var Post = mongoose.model('post');
-var Message = mongoose.model('message');
+let db = require('../db/db');
+let Post = db.dbData.model('post');
+let Message = db.dbData.model('message');
+let logger = require('../logger/loger');
 
 /**
  * Returns most recent messages
@@ -52,13 +53,13 @@ function getPost (req, res) {
   const postId = req.headers.postid || req.params.id;
 
   Post
-    .findOne({
-      _id: postId
-    })
+    .findOne({ _id: postId })
     .populate('userId', ['name'])
     .exec()
     .then(post => {
-      res.json(post);
+      res
+        .status(200)
+        .json(post);
     })
     .catch(function (err) {
       console.error(err);
@@ -92,16 +93,22 @@ function getUserPosts (req, res) {
               return post._id;
             })
           }
-        }).exec()
+        })
+          .exec()
       ]);
     })
     .then(function (results) {
       const posts = countPostsMessages(results[0], results[1]);
 
-      res.json(posts);
+      // Log user getting recent messages
+      logger.createLog({ action: 'User requests their recent posts', code: 200, userId: _id, ip: req.ip });
+
+      res
+        .status(200)
+        .json(posts);
     })
     .catch(function (err) {
-      console.log(err);
+      console.error(err);
       res.json(err);
     });
 }

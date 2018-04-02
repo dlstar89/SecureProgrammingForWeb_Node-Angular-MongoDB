@@ -11,7 +11,7 @@ config:
     local:
       target: 'http://localhost:8080/api'
     test:
-      target: 'http://localhost:9999/api'
+      target: 'http://localhost:4321/api'
   variables:
       email:
         - "b@b.bb"

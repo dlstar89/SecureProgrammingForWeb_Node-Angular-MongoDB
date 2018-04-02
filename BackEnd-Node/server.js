@@ -1,8 +1,9 @@
 /** Required packages */
 let express = require('express');
 let app = express();
+require('./app/db/db');
 let config = require('config');
-let middleware = require('./app/middleware/middlewatesetup');
+let middleware = require('./app/middleware/_middlewatesetup');
 
 middleware.setup(app);
 
@@ -29,4 +30,4 @@ let port = process.env.PORT || config.port;
 app.listen(port);
 console.log('Server running on http://localhost:' + port);
 
-module.exports = app;
+module.exports = exports = app;

@@ -1,3 +1,5 @@
 {
-    "port": 9999
+    "port": 4321,
+    "mongoDB": "mongodb://localhost:9999/data",
+    "mongoDBLogs": "mongodb://localhost:9999/logs"
 }

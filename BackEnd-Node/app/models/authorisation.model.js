@@ -1,5 +1,5 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+let Schema = require('mongoose').Schema;
+let db = require('../db/db');
 
 let authorisationSchema = new Schema({
   authName: {
@@ -18,4 +18,4 @@ authorisationSchema.methods.setAnsweredStatus = function (isAnswered) {
   this.markedAsAnswer = isAnswered;
 };
 
-module.exports = mongoose.model('authorisation', authorisationSchema);
+module.exports = db.dbData.model('authorisation', authorisationSchema);

@@ -1,5 +1,6 @@
-var mongoose = require('mongoose');
-var User = mongoose.model('user');
+let db = require('../db/db');
+let User = db.dbData.model('user');
+let logger = require('../logger/loger');
 
 /**
  * Returns user profile
@@ -10,19 +11,27 @@ var User = mongoose.model('user');
 function profileRead (req, res) {
   // If no user ID exists in the JWT return a 401
   if (!req.payload._id) {
-    res.status(401).json({
-      'message': 'UnauthorizedError: private profile'
-    });
+    logger.createLog({ action: 'Unauthorized reading profile', code: 401, ip: req.ip });
+
+    res
+      .status(401)
+      .json({
+        'message': 'UnauthorizedError: private profile'
+      });
   } else {
     // Otherwise continue
     User
       .findById(req.payload._id, ['name', 'email'])
-      .exec(function (err, user) {
-        if (err) {
-          res.send(err);
-          return;
-        }
-        res.status(200).json(user);
+      .exec()
+      .then(user => {
+        logger.createLog({ action: 'User requested profile', code: 200, userId: req.payload._id, ip: req.ip });
+
+        res
+          .status(200)
+          .json(user);
+      })
+      .catch(err => {
+        res.send(err);
       });
   }
 }

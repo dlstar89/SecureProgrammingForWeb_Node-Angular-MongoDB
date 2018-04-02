@@ -1,10 +1,12 @@
 /*eslint-disable */
-let User = require('../app/models/user');
-let Post = require('../app/models/post');
-let Message = require('../app/models/message');
+let server = require('../server');
+let db = require('../app/db/db');
+let User = db.dbData.model('user');
+let Post = db.dbData.model('post');
+let Message = db.dbData.model('message');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-let server = require('../server');
+
 
 let should = chai.should();
 chai.use(chaiHttp);

@@ -2,8 +2,8 @@
 let config = require('config');
 let crypto = require('crypto');
 let jwt = require('jsonwebtoken');
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+let Schema = require('mongoose').Schema;
+let db = require('../db/db');
 
 /**
  * @swagger
@@ -150,4 +150,4 @@ userSchema.pre('save', function (next) {
 });
 
 // Export User schema
-module.exports = mongoose.model('user', userSchema);
+module.exports = db.dbData.model('user', userSchema);

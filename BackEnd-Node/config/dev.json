@@ -1,3 +1,4 @@
 {
-    "mongoDB": "mongodb://localhost:6000/data"
+    "mongoDB": "mongodb://localhost:6000/data",
+    "mongoDBLogs": "mongodb://localhost:6000/logs"
 }

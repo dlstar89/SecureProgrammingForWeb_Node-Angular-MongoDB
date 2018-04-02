@@ -1,5 +1,6 @@
-var mongoose = require('mongoose');
-var Message = mongoose.model('message');
+let db = require('../db/db');
+let Message = db.dbData.model('message');
+let logger = require('../logger/loger');
 
 /**
  * Returns all messages for given post id
@@ -11,16 +12,15 @@ function getRecentMessages (req, res) {
   const postId = req.headers.postid;
 
   Message
-    .find({
-      postId: postId
-    })
+    .find({ postId: postId })
     .populate('userId', ['name'])
     // .limit(10)
-    .exec(function (err, messages) {
-      if (err) {
-        res.send(err);
-      }
-      res.json(messages);
+    .exec()
+    .then(messages => {
+      res.status(200).json(messages);
+    })
+    .catch(err => {
+      res.send(err);
     });
 }
 
@@ -54,8 +54,11 @@ function createMessage (req, res) {
       .exec(function (err, message) {
         if (err) {
           res.send(err);
+          return;
         }
-        res.json(message);
+        // Log user create new message for a post
+        logger.createLog({ action: 'User Create New Message', code: 200, userId: userid, ip: req.ip, extra: { postId: postId, messageId: message._id } });
+        res.status(200).json(message);
       });
   });
 }
@@ -67,7 +70,7 @@ function createMessage (req, res) {
    * @param {any} res
    */
 function markMessageAnsweredStatus (req, res) {
-  // const userid = req.payload._id;
+  const userid = req.payload._id;
 
   let messageId = req.body.messageId;
   let isAnswered = req.body.markedAsAnswer;
@@ -83,8 +86,12 @@ function markMessageAnsweredStatus (req, res) {
             res.json(err);
             return;
           }
+          // Log message answered s
+          logger.createLog({ action: 'Mark message status', code: 200, userId: userid, ip: req.ip, extra: { messageId: message._id } });
 
-          res.status(200).json(message);
+          res
+            .status(200)
+            .json(message);
         });
     })
     .catch(err => {

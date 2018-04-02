@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-let Authorization = mongoose.model('authorisation');
-let User = mongoose.model('user');
-let Post = mongoose.model('post');
-let Message = mongoose.model('message');
+let db = require('./db/db');
+let Authorization = db.dbData.model('authorisation');
+let User = db.dbData.model('user');
+let Post = db.dbData.model('post');
+let Message = db.dbData.model('message');
 
 function createAuthorizations () {
   let authorisations = [
