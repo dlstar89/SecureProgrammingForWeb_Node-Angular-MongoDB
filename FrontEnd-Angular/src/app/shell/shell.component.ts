@@ -18,7 +18,7 @@ export class ShellComponent implements OnInit {
 
   title = 'WORK BOARD';
 
-  modalConfig = { width: '320px', position: { top: '0px' } };
+  modalConfig = { width: '340px', position: { top: '0px' } };
 
   constructor(
     public auth: AuthenticationService,

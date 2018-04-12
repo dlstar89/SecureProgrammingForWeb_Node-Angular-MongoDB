@@ -2,32 +2,39 @@
   <form (ngSubmit)='onSubmit()' [formGroup]='form' #myForm="ngForm">
     <h2 style="text-align: center;">LOGIN</h2>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <input
         formControlName='email'
         required
         matInput
         placeholder="Email"
+        autocomplete="email"
         [(ngModel)]='credentials.email'>
-        <mat-error *ngIf='!form.controls.email.valid'>
-          Please enter a valid email address e.g: a@b.ab
-        </mat-error>
+      <mat-error *ngIf='!form.controls.email.valid'>Please enter a valid email address e.g: a@b.ab</mat-error>
     </mat-form-field>
 
     <br>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <input
         formControlName='password'
         required
         type="password"
         matInput
         placeholder="Password"
+        autocomplete="current-password"
         [(ngModel)]='credentials.password'>
-      <mat-error *ngIf='!form.controls.password.valid'>
-        Password must have at least 4 cahracters
-      </mat-error>
+      <mat-error *ngIf='!form.controls.password.valid'>Invalid password</mat-error>
     </mat-form-field>
+
+    <br>
+
+    <re-captcha
+      formControlName='recaptcha'
+      (resolved)="resolved($event)"
+      siteKey="6LevjVIUAAAAAEMVR1-1iyD49c1VxHNlmCZd6GSo"
+      ([ngModel])='credentials.reCaptcha'>
+    </re-captcha>
 
     <br>
 
@@ -36,4 +43,6 @@
       <button mat-raised-button color="accent" type="reset" (click)='closeDialog()' style="float: right;">CANCEL</button>
     </div>
   </form>
+  <br>
+  <div *ngIf='showError' class="errorText">{{errorMessage}}</div>
 </div>

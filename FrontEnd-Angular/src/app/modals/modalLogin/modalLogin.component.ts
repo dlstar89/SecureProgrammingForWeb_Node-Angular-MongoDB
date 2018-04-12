@@ -1,3 +1,5 @@
+import { MessageUpdateStatus } from './../../_services/message.service';
+import { environment } from './../../../environments/environment';
 import { ISubscription } from 'rxjs/Subscription';
 import { AuthenticationService, TokenPayload } from './../../_services/authentication.service';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
@@ -17,12 +19,19 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
 
   credentials: TokenPayload = {
     email: '',
-    password: ''
+    password: '',
+    reCaptcha: ''
   };
 
   form;
 
   private subscription$: ISubscription;
+
+  invalidCredentialsError = false;
+  serverUnreachableError = false;
+
+  showError = false;
+  errorMessage = '';
 
   constructor(
     private erh: ErrorhandlerService,
@@ -36,12 +45,23 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = this.fb.group({
       email: ['', [Validators.required, this.fv.isEmailValid()]],
-      password: ['', [Validators.required, this.fv.isPasswordValid()]]
+      password: ['', [Validators.required, this.fv.isPasswordValid()]],
+      recaptcha: ['', Validators.required]
     });
+
+    // setup test credentials when running on dev environment
+    if (environment.production === false) {
+      this.credentials.email = 'a@a.aa';
+      this.credentials.password = 'Pass1234';
+    }
   }
 
   closeDialog(): void {
     this.dialogRef.close();
+  }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
 
   onSubmit() {
@@ -50,8 +70,17 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/profile');
     },
       err => {
-        console.error(err);
-        this.erh.handleError('INVALID CREDENTIALS', 'CLOSE');
+        this.erh.logError(err);
+        this.showError = true;
+
+        switch (err.status) {
+          case 401:
+            this.errorMessage = 'Invalid Credentials, Please try again';
+            break;
+          case 0:
+            this.errorMessage = 'Server is unreachable, Please try again later';
+            break;
+        }
       });
   }
 

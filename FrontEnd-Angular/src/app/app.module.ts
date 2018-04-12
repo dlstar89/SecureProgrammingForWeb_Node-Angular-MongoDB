@@ -11,7 +11,7 @@ import { ShellComponent } from './shell/shell.component';
 // ROUTING
 import { RoutingModule } from './app.routing';
 
-/**MODALS */
+// MODALS
 import { MODALS } from './modals/modals.component';
 
 // SERVICES
@@ -34,6 +34,9 @@ import { PostComponent } from './pages/post/post.component';
 import { MessagecardComponent } from './componenets/messagecard/messagecard.component';
 import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.component';
 
+// RE-CAPTCHA
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,9 @@ import { ActionbuttonComponent } from './componenets/actionbutton/actionbutton.c
     FormsModule,
     ReactiveFormsModule,
     RoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule
   ],
   entryComponents: [
     ShellComponent,
