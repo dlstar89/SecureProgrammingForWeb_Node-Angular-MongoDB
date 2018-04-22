@@ -14,13 +14,13 @@
 <div id="tasks" [@cardFadeIn]="posts.myPostsArray.length">
   <app-taskcard class="TaskLink"
     *ngFor="let post of posts.myPostsArray"
-      [routerLink]='["/post", post?._id]'
       [postId]='post?._id'
       [title]='post?.title'
       [shortDescription]='post?.shortDescription'
       [totalMessages]='post?.totalMessages'
       [totalAnswers]='post?.totalAnswers'
       [datePosted]='post?.postedOn'
+      [authorised]='true'
     >
   </app-taskcard>
 </div>

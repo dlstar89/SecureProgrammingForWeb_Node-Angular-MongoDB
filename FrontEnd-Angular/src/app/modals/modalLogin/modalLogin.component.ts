@@ -23,13 +23,9 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
     reCaptcha: ''
   };
 
-  form;
-
   private subscription$: ISubscription;
 
-  invalidCredentialsError = false;
-  serverUnreachableError = false;
-
+  form;
   showError = false;
   errorMessage = '';
 
@@ -79,6 +75,9 @@ export class ModalLoginComponent implements OnInit, OnDestroy {
             break;
           case 0:
             this.errorMessage = 'Server is unreachable, Please try again later';
+            break;
+          default:
+            this.errorMessage = 'Something went wrong, Please try again later';
             break;
         }
       });

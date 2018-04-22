@@ -89,6 +89,29 @@ function setup (auth) {
    */
   routes.post('/createpost', auth, post.createPost);
 
+  /**
+   * @swagger
+   * /deletePost:
+   *   delete:
+   *     security:
+   *       - Bearer: ['#/securityDefinitions/Bearer']
+   *     description: Delete post
+   *     tags: [Posts]
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: id
+   *         description: Post id
+   *         in: header
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         schema:
+   *           $ref: '#/definitions/NewPost'
+   */
+  routes.delete('/deletePost', auth, post.deletePost);
+
   return routes;
 }
 

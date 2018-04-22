@@ -14,8 +14,4 @@ let authorisationSchema = new Schema({
   }
 }, { versionKey: false });
 
-authorisationSchema.methods.setAnsweredStatus = function (isAnswered) {
-  this.markedAsAnswer = isAnswered;
-};
-
 module.exports = db.dbData.model('authorisation', authorisationSchema);

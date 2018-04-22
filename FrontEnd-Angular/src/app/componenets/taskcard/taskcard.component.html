@@ -1,4 +1,13 @@
 <mat-card [ngClass]="{'highlight':answered}">
+  <div style='display: flex;'>
+    <button mat-icon-button [routerLink]='["/post", postId]'>
+      <i class="material-icons">info</i>
+    </button>
+    <span style="flex: 1 1 auto;"></span>
+    <button *ngIf='authorised' style='background-color: #ff0000ba;' mat-icon-button (click)='openDialog()'>
+      <i class="material-icons">cancel</i>
+    </button>
+  </div>
   <mat-card-title>{{title}}</mat-card-title>
   <mat-card-subtitle>{{author}}</mat-card-subtitle>
   <mat-card-content>

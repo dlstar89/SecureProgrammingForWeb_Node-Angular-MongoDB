@@ -1,6 +1,7 @@
 let db = require('../db/db');
 let Message = db.dbData.model('message');
 let logger = require('../logger/loger');
+let authorisation = require('./authorisation.controller');
 
 /**
  * Returns all messages for given post id
@@ -71,14 +72,27 @@ function createMessage (req, res) {
    */
 function markMessageAnsweredStatus (req, res) {
   const userid = req.payload._id;
-
-  let messageId = req.body.messageId;
-  let isAnswered = req.body.markedAsAnswer;
+  const messageId = req.body.messageId;
+  const isAnswered = req.body.markedAsAnswer;
 
   Message
     .findById(messageId)
     .exec()
     .then(message => {
+      if (message.userId.equals(userid)) {
+        return Promise.all([message, true]);
+      } else {
+        return Promise.all([message, authorisation.isAdmin(userid)]);
+      }
+    })
+    .then(data => {
+      let authorised = !!data[1];
+      if (authorised === false) {
+        res.status(401).json({ message: 'Unauthorised' });
+        return;
+      }
+
+      var message = data[0];
       message.setAnsweredStatus(isAnswered);
       message
         .save(function (err) {
@@ -86,7 +100,7 @@ function markMessageAnsweredStatus (req, res) {
             res.json(err);
             return;
           }
-          // Log message answered s
+          // Log message answered status
           logger.createLog({ action: 'Mark message status', code: 200, userId: userid, ip: req.ip, extra: { messageId: message._id } });
 
           res

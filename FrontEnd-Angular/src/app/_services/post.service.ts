@@ -93,4 +93,23 @@ export class PostService {
           _err();
         });
   }
+
+  public detePost(postId: string, bearer: string, _suc?: Function, _err?: Function) {
+    this.http.delete(this.BASE_URL + '/deletepost', { headers: { Authorization: `Bearer ${bearer}`, postid: postId } })
+      .subscribe(
+        res => {
+          let index = 0;
+          this.myPostsArray.forEach(post => {
+            if (post._id === postId) {
+              this.myPostsArray.splice(index, 1);
+            }
+            index++;
+          });
+          _suc();
+        },
+        err => {
+          console.error(err);
+          _err();
+        });
+  }
 }

@@ -1,7 +1,6 @@
 let config = require('config');
 let morgan = require('morgan');
 let bodyParser = require('body-parser');
-let cookieParser = require('cookie-parser');
 let cors = require('cors');
 let helmet = require('helmet');
 let passport = require('passport');
@@ -22,11 +21,24 @@ function setup (app) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  // use cookie parser
-  app.use(cookieParser());
-
-  // apply CORS
-  app.use(cors());
+  // apply CORS for live environment
+  if (config.util.getEnv('NODE_ENV') === 'production') {
+    var whitelist = ['undefined', 'http://localhost:4200'];
+    var corsOptions = {
+      origin: function (origin, callback) {
+        console.log('ORIGIN: ' + origin);
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      }
+    };
+    app.use(cors(corsOptions));
+  } else {
+    // CORS for DEV & TEST environment
+    app.use(cors());
+  }
 }
 
 module.exports = {

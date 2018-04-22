@@ -2,6 +2,7 @@ let db = require('../db/db');
 let Post = db.dbData.model('post');
 let Message = db.dbData.model('message');
 let logger = require('../logger/loger');
+let authorisation = require('./authorisation.controller');
 
 /**
  * Returns most recent messages
@@ -169,9 +170,60 @@ function createPost (req, res) {
   });
 }
 
+/**
+ * Deletes post
+ *
+ * @param {any} req
+ * @property {string} req.body.postid
+ * @property {string} req.body.userid
+ *
+ * @param {json} res
+ */
+function deletePost (req, res) {
+  const data = req.headers;
+  const userId = req.payload._id;
+  const postId = data.postid;
+  console.log(`${userId} : ${postId}`);
+
+  Post
+    .findById(postId)
+    .exec()
+    .then(post => {
+      if (post.userId.equals(userId)) {
+        return Promise.all([true]);
+      } else {
+        return Promise.all([authorisation.isAdmin(userId)]);
+      }
+    })
+    .then(data => {
+      let authorised = !!data[0];
+      if (authorised === false) {
+        res.status(401).json({ message: 'Unauthorised' });
+        return;
+      }
+
+      Post
+        .findByIdAndRemove({ _id: postId })
+        .exec()
+        .then(data => {
+          logger.createLog({ action: 'User deleted post', code: 200, userId: userId, ip: req.ip });
+          res.status(200);
+        });
+    })
+    .catch(err => {
+      if (err) {
+        console.error(err);
+        res.status(321).json({ message: 'Post not found', err: err });
+      }
+    });
+
+  res.status(200).json();
+}
+
 module.exports = {
   getRecentPosts,
   getPost,
   getUserPosts,
-  createPost
+  createPost,
+  deletePost
 };
