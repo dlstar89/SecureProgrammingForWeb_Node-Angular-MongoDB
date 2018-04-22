@@ -4,6 +4,8 @@ let bodyParser = require('body-parser');
 let cors = require('cors');
 let helmet = require('helmet');
 let passport = require('passport');
+let mongoSanitize = require('express-mongo-sanitize');
+
 
 require('../models/_models'); // Initializes mongoose models
 require('../passportconfig/passport'); // Initiazlie passport configuration
@@ -20,6 +22,9 @@ function setup (app) {
   // use body parser so we can get data from api body payload
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  // MongoDB sanitizer
+  app.use(mongoSanitize());
 
   // apply CORS for live environment
   if (config.util.getEnv('NODE_ENV') === 'production') {
