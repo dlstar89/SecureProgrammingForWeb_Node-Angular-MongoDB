@@ -54,6 +54,13 @@
       </mat-error>
     </mat-form-field>
 
+    <re-captcha
+      formControlName='recaptcha'
+      (resolved)="resolved($event)"
+      siteKey="6LevjVIUAAAAAEMVR1-1iyD49c1VxHNlmCZd6GSo"
+      ([ngModel])='credentials.reCaptcha'>
+    </re-captcha>
+
     <br>
     <div *ngIf='form.errors?.passwordMatch' style="color: red;">password dont match</div>
 

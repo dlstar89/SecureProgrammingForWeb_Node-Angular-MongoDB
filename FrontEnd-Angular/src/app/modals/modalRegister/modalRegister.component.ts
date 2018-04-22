@@ -37,9 +37,14 @@ export class ModalRegisterComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, this.fv.isEmailValid()]],
       password: ['', [Validators.required, this.fv.isPasswordValid()]],
       passwordRepeat: ['', [Validators.required, this.fv.isPasswordValid()]],
+      recaptcha: ['', Validators.required]
     },
       { validator: this.fv.fieldsMatch('password', 'passwordRepeat') }
     );
+  }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
 
   closeDialog(): void {
